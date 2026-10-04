@@ -1,4 +1,4 @@
-const VERSION='egw-v2';
+const VERSION='egw-v3';
 const SHELL='egw-shell-'+VERSION;
 const DATA='egw-data-1';
 const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png','./data/books.json?v=1'];
