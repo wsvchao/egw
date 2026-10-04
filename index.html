@@ -167,7 +167,7 @@ mark{background:var(--brass-soft);color:var(--brass-ink);border-radius:3px;paddi
 <script>
 "use strict";
 /* ============ constants ============ */
-var APP_VER = "egw-v1", APP_DATE = "2026-10-04", DV = 1;
+var APP_VER = "egw-v2", APP_DATE = "2026-10-04", DV = 1;
 var STUDY_URL = "https://wsvchao.github.io/study/";
 var GROUPS = [
   ["core", "核心著作（中英對照）"],
@@ -414,7 +414,7 @@ function viewToc(c){
   if(!meta){ return viewHome(); }
   VIEW = { name: "toc", c: meta.c };
   setApp(topBar(bBack("#/"), esc(meta.zh || meta.en), esc(meta.en + (meta.y ? " · " + meta.y : "")),
-    '<button class="ibtn" data-go="#/s/?b=' + esc(meta.c) + '" aria-label="本書搜尋">' + ICON.search + "</button>") +
+    '<button class="ibtn" data-go="#/s/?b=' + esc(meta.c) + '" aria-label="本書搜尋">' + ICON.search + "</button>" + '<button class="ibtn" data-go="#/" aria-label="回主畫面">' + ICON.home + '</button>') +
     '<main><div class="wrap"><div class="chload empty">載入中…</div></div></main>');
   loadBook(meta.c).then(function(b){
     if(!VIEW || VIEW.name !== "toc" || VIEW.c !== meta.c) return;
@@ -432,8 +432,8 @@ function viewToc(c){
       html += tocRow(meta.c, ch, b);
     });
     html += "</div>";
-    $("app").querySelector(".wrap").innerHTML = html;
-  }).catch(function(){ $("app").querySelector(".wrap").innerHTML = '<div class="empty">載入失敗。請確認網路後重試。</div>'; });
+    $("app").querySelector("main .wrap").innerHTML = html;
+  }).catch(function(){ $("app").querySelector("main .wrap").innerHTML = '<div class="empty">載入失敗。請確認網路後重試。</div>'; });
 }
 function tocRow(c, ch, b){
   var m = /^(Chapter|Section|Part|Article)\s+(\d+)[—–-](.*)$/i.exec(ch.en);
@@ -497,7 +497,7 @@ function renderReader(meta, b, tgt){
   var title = (S.mode === "zh" && (S.zhv === "cn" ? ch.cn : ch.tw)) ? (S.zhv === "cn" ? ch.cn : ch.tw) : ch.en;
   var html = topBar(bBack("#/b/" + meta.c), esc(meta.zh || meta.en),
     esc(chapShort(ch)), '<button class="ibtn" data-go="#/s/?b=' + esc(meta.c) + '" aria-label="本書搜尋">' + ICON.search +
-    '</button><button class="ibtn" id="aabtn" aria-label="顯示設定">' + ICON.aa + "</button>");
+    '</button><button class="ibtn" id="aabtn" aria-label="顯示設定">' + ICON.aa + "</button>" + '<button class="ibtn" data-go="#/" aria-label="回主畫面">' + ICON.home + '</button>');
   html += '<main><div class="wrap" id="rd">' + rdHTML(meta, b, ci, s, e, sp, spn) + "</div></main>";
   setApp(html);
   afterRender(meta, b, tgt);
