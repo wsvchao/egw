@@ -1,7 +1,7 @@
-const VERSION='egw-v7';
+const VERSION='egw-v8';
 const SHELL='egw-shell-'+VERSION;
 const DATA='egw-data-1';
-const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png','./data/books.json?v=2'];
+const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png','./data/books.json?v=3'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(SHELL).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>/^egw-shell-/.test(k)&&k!==SHELL).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{
