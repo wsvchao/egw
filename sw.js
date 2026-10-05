@@ -1,14 +1,59 @@
-const VERSION='egw-v12';
-const SHELL='egw-shell-'+VERSION;
-const DATA='egw-data-1';
-const FILES=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-180.png','./data/books.json?v=3'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(SHELL).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()));});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>/^egw-shell-/.test(k)&&k!==SHELL).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
-self.addEventListener('fetch',e=>{
-  const r=e.request; if(r.method!=='GET')return;
-  const u=new URL(r.url); if(u.origin!==location.origin)return;
-  if(u.pathname.includes('/data/')){
-    e.respondWith(caches.open(DATA).then(c=>c.match(r).then(h=>h||fetch(r).then(n=>{if(n.ok)c.put(r,n.clone());return n;}))));return;
+/* Textionary 背誦本 — offline cache.
+   改過 index.html 之後，把下面的版本號 +1，手機才會抓到新版。 */
+const VERSION = "study-v89";
+const FILES = [
+  "./", "./index.html", "./manifest.webmanifest",
+  "./icon-180.png", "./icon-192.png", "./icon-512.png"
+];
+
+self.addEventListener("install", (e) => {
+  e.waitUntil(caches.open(VERSION).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));
+});
+
+/* 聖經全文（bible/xx.json）、懷氏著作（egw/xx.json）與SDA聖經注釋（commentary/xx.json）
+   另放長期快取，App改版時不清掉；同一個檔名底下新增內容時用「先給舊的、背景抓新的」
+   策略自動換新，使用者不必手動清除、也不必整批重新下載。
+   但如果是把某個檔案「原本的內容整批換掉／改寫」（例如某一卷的注釋整篇重新翻譯），
+   舊的那份還是會先被吃進快取，「背景更新」也只會換到「下一次」才生效——這種情況
+   一定要把下面對應那個常數的版號 +1，才會逼瀏覽器把整批舊快取砍掉、乾乾淨淨重抓。 */
+const BIBLE = "textionary-bible-v1";
+const EGW = "textionary-egw-v1";
+const COMMENTARY = "textionary-commentary-v11";
+
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(
+        keys.filter((k) => k !== VERSION && k !== BIBLE && k !== EGW && k !== COMMENTARY).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener("fetch", (e) => {
+  const req = e.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;   // 字型等外部資源不快取
+  const longLived = url.pathname.indexOf("/bible/") >= 0 ? BIBLE
+                  : url.pathname.indexOf("/egw/") >= 0 ? EGW
+                  : url.pathname.indexOf("/commentary/") >= 0 ? COMMENTARY : null;
+  if (longLived) {                                   // 書卷與懷氏段落：先給快取（若有），同時背景抓新的
+    e.respondWith(
+      caches.open(longLived).then((cache) => cache.match(req).then((hit) => {
+        const fresh = fetch(req).then((res) => {
+          cache.put(req, res.clone());
+          return res;
+        }).catch(() => hit);
+        return hit || fresh;               // 有快取先用快取（快），背景仍會更新，下次自動就是新的
+      }))
+    );
+    return;
   }
-  e.respondWith(fetch(r).then(n=>{if(n.ok){const cp=n.clone();caches.open(SHELL).then(c=>c.put(r,cp));}return n;}).catch(()=>caches.match(r,{ignoreSearch:false}).then(h=>h||caches.match('./index.html'))));
+  e.respondWith(
+    caches.match(req).then((hit) => hit || fetch(req).then((res) => {
+      const copy = res.clone();
+      caches.open(VERSION).then((c) => c.put(req, copy));
+      return res;
+    }).catch(() => caches.match("./index.html")))
+  );
 });
