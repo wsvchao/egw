@@ -633,6 +633,30 @@ mark{background:var(--brass-soft);color:var(--brass-ink);border-radius:3px;paddi
 .gtog em{flex:1 1 auto;font-style:normal;font-weight:600;color:var(--brass-ink);font-size:calc(14px * var(--fs))}
 .sub.sec{margin-top:22px}
 
+.trow2{display:flex;align-items:center;border-bottom:1px solid var(--rule-soft)}
+.tlist .trow2:last-child{border-bottom:0}
+.trow2 .trow{flex:1 1 auto;border-bottom:0}
+.pinbtn{flex:0 0 auto;width:48px;height:48px;font-size:22px;color:var(--muted)}
+.pinbtn.on{color:var(--brass-ink)}
+.egwlk{color:var(--brass-ink);text-decoration:none;border-bottom:1px dotted var(--brass-ink);padding:3px 0;margin:-3px 0}
+.biblk{color:var(--sage);text-decoration:none;border-bottom:1px dotted var(--sage);padding:3px 0;margin:-3px 0}
+.hl{cursor:pointer;border-radius:3px}
+.hl-yellow{background:rgba(255,193,7,.4)}
+.hl-orange{background:rgba(255,152,0,.4)}
+.hl-red{background:rgba(244,67,54,.4)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hl-yellow{background:rgba(255,193,7,.25)}:root:not([data-theme="light"]) .hl-orange{background:rgba(255,152,0,.28)}:root:not([data-theme="light"]) .hl-red{background:rgba(244,67,54,.3)}}
+:root[data-theme="dark"] .hl-yellow{background:rgba(255,193,7,.25)}
+:root[data-theme="dark"] .hl-orange{background:rgba(255,152,0,.28)}
+:root[data-theme="dark"] .hl-red{background:rgba(244,67,54,.3)}
+.hl-toolbar{position:fixed;z-index:50;user-select:none;-webkit-user-select:none;background:var(--surface);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);display:flex;gap:8px;padding:10px;max-width:280px}
+.hl-toolbar button{padding:8px 12px;border-radius:8px;border:1px solid var(--rule-soft);font-size:calc(13px * var(--fs));font-weight:500;white-space:nowrap}
+.hl-toolbar .hl-menu{display:flex;gap:6px;align-items:center}
+.hl-color-btn{width:32px;height:32px;border-radius:6px;border:2px solid transparent;padding:0}
+.hl-color-btn.hl-yellow{background:rgba(255,193,7,.6)}
+.hl-color-btn.hl-orange{background:rgba(255,152,0,.6)}
+.hl-color-btn.hl-red{background:rgba(244,67,54,.6)}
+.hl-toolbar .hl-del{color:var(--clay);font-weight:600;border-color:var(--clay);background:var(--clay-soft)}
+
 </style>
 </head>
 <body>
@@ -642,13 +666,15 @@ mark{background:var(--brass-soft);color:var(--brass-ink);border-radius:3px;paddi
 <script>
 "use strict";
 /* ============ constants ============ */
-var APP_VER = "egw-v16", APP_DATE = "2026-10-05", DV = 9;
+var APP_VER = "egw-v17", APP_DATE = "2026-10-06", DV = 10;
 var STUDY_URL = "https://wsvchao.github.io/study/";
-var STR = {"zh": {"fsTitle": "字級", "fsNames": ["小", "標準", "大", "特大", "最大"], "fsReset": "回到標準字級", "showMode": "顯示", "bi": "中英對照", "mono": "只看中文", "orderLbl": "順序", "zhTop": "中文在上", "enTop": "英文在上", "back": "返回", "tabEgw": "懷著", "tabLib": "背誦庫", "tabSet": "設定", "pickMsg": "請進入書本，點選段落後按「加入背誦庫」。", "pickDone": "完成，回背誦庫", "resume": "繼續閱讀", "searchPh": "搜尋書名，或輸入 DA 3.2 直接跳到出處", "homeHint": "輸入關鍵字按搜尋鍵可全文檢索；中文只搜尋有中文版的書。", "bookmarks": "書籤", "noBook": "找不到符合的書。按搜尋鍵可全文檢索。", "coreSec": "有中文版（%1 本）", "cats": {"pinned": "常讀書籍", "conflict": "善惡之爭系列", "testimonies": "教會證言與信息", "devotion": "靈修與生活", "compil": "選粹與彙編", "gifts": "屬靈恩賜與歷史", "health": "健康與飲食", "family": "家庭與教育", "ministry": "佈道與事工", "bio": "傳記與史料", "bible": "聖經註釋", "mr": "文稿發佈", "st": "時兆期刊", "per": "其他期刊與單張", "pam": "小冊子", "other": "其他"}, "noZhSec": "尚無中文版", "sortTitle": "依書名", "sortYear": "依年份", "bilingualTag": "中英", "zhOnlyTag": "中文", "loading": "載入中…", "loadFail": "載入失敗，請確認網路後再試。", "catFail": "找不到書目資料，請確認 data 資料夾已上傳。", "searchInBook": "在本書內搜尋，或輸入頁碼（如 120 或 120.3）", "lastRead": "上次讀到", "prev": "上一章", "next": "下一章", "toc": "目錄", "longChap": "本章較長，分為 %1 段，目前第 %2 段", "inLib": "已在背誦庫（再按移除）", "addLib": "加入背誦庫", "bmDel": "移除書籤", "bmAdd": "加書籤", "copyCite": "複製（含出處）", "copyEn": "複製英文", "copyZh": "複製中文", "copyLink": "複製連結", "bibleRefs": "經文（在研讀版開啟）", "copied": "已複製", "bmRemoved": "已移除書籤", "bmAdded": "已加書籤", "bmEmpty": "還沒有書籤", "bmEmpty2": "閱讀時點段落，選「加書籤」。", "bmCopyAll": "複製全部書籤", "scopeBook": "本書", "scopeCore": "有中文版", "scopeOpen": "已開啟", "scopeAll": "全部", "libAdd": "加入背誦", "pickFromBooks": "從書本中挑選段落", "searchPh2": "輸入關鍵字（中文或英文）", "search": "搜尋", "searchTip": "全部書籍約 %1。中文只搜尋有中文版的書，英文可搜全部。", "noZhScope": "此範圍內沒有中文版的書。", "noScope": "此範圍內沒有可搜尋的書。", "searching": "搜尋中…", "searchingN": "已搜 %1／%2 本，找到 %3 段", "foundN": "找到 %1 段（%2 本書）", "notFound": "沒有找到。", "moreN": "再顯示 %1 筆（共 %2）", "titleHits": "書名符合", "nHits": "%1 段", "expandN": "展開其餘 %1 段", "collapse": "收合", "moreBooksN": "再顯示 %1 本書（尚有 %2 本）", "added": "已加", "libRemoved": "已移出背誦庫", "libAdded": "已加入背誦庫", "libEmpty": "背誦庫還是空的", "libEmpty2": "按右下角「＋」搜尋關鍵字，或在閱讀時點段落加入。", "libCount": "共 %1 段 ・ 記得 %2 ・ 忘記 %3", "libDelN": "刪除選取的 %1 段", "libDelDone": "完成", "libDelToggle": "選取並刪除", "lv": {"fill": "填充", "hint": "提示", "blank": "全空白"}, "vlvDesc": {"fill": "點空格可以單獨顯示一個詞", "hint": "點任一句，可單獨顯示那一句", "blank": "點任一句，可單獨顯示那一句"}, "scoreline": "記得 %1 ・ 忘記 %2", "showAll": "顯示全文", "reshuffle": "再練一次", "openInBook": "回到書中", "nextItem": "下一段", "forgot": "忘記", "got": "記得", "allDone": "這一輪做完了", "setLook": "外觀", "setTheme": "主題", "themeDark": "深色", "themeLight": "淺色", "themeAuto": "跟隨系統", "setOffline": "離線使用", "dlCore": "下載有中文版的書（%1 本，%2）", "dl": "下載", "dlAll": "下載全部 %1 本（%2）", "dlClear": "清除已下載的書", "clear": "清除", "clearAsk": "確定清除離線資料？", "cleared": "已清除", "dlDone": "已下載 %1 本", "dlFail": "，%1 本失敗", "dlIng": "下載中 %1／%2　%3", "setLinks": "連結", "studyLink": "銘刻心版　研讀版", "setVersion": "版本", "verLab": "版本", "verDate": "更新日期", "sourceNote": "App 僅供個人學習使用，不作商業用途。", "aiTag": "補譯", "aiNote": "標示「補譯」的段落，原書中文版缺少該段，為 AI 補譯，非官方中文譯本，僅供參考。"}, "hans": {"fsTitle": "字级", "fsNames": ["小", "标准", "大", "特大", "最大"], "fsReset": "回到标准字级", "showMode": "显示", "bi": "中英对照", "mono": "只看中文", "orderLbl": "顺序", "zhTop": "中文在上", "enTop": "英文在上", "back": "返回", "tabEgw": "懷著", "tabLib": "背诵库", "tabSet": "设定", "pickMsg": "请进入书本，点选段落后按「加入背诵库」。", "pickDone": "完成，回背诵库", "resume": "继续阅读", "searchPh": "搜寻书名，或输入 DA 3.2 直接跳到出处", "homeHint": "输入关键字按搜寻键可全文检索；中文只搜寻有中文版的书。", "bookmarks": "书签", "noBook": "找不到符合的书。按搜寻键可全文检索。", "coreSec": "有中文版（%1 本）", "cats": {"pinned": "常读书籍", "conflict": "善恶之争系列", "testimonies": "教会证言与信息", "devotion": "灵修与生活", "compil": "选粹与汇编", "gifts": "属灵恩赐与历史", "health": "健康与饮食", "family": "家庭与教育", "ministry": "布道与事工", "bio": "传记与史料", "bible": "圣经注释", "mr": "文稿发布", "st": "时兆期刊", "per": "其他期刊与单张", "pam": "小册子", "other": "其他"}, "noZhSec": "尚无中文版", "sortTitle": "依书名", "sortYear": "依年份", "bilingualTag": "中英", "zhOnlyTag": "中文", "loading": "载入中…", "loadFail": "载入失败，请确认网路后再试。", "catFail": "找不到书目资料，请确认 data 资料夹已上传。", "searchInBook": "在本书内搜寻，或输入页码（如 120 或 120.3）", "lastRead": "上次读到", "prev": "上一章", "next": "下一章", "toc": "目录", "longChap": "本章较长，分为 %1 段，目前第 %2 段", "inLib": "已在背诵库（再按移除）", "addLib": "加入背诵库", "bmDel": "移除书签", "bmAdd": "加书签", "copyCite": "复制（含出处）", "copyEn": "复制英文", "copyZh": "复制中文", "copyLink": "复制连结", "bibleRefs": "经文（在研读版开启）", "copied": "已复制", "bmRemoved": "已移除书签", "bmAdded": "已加书签", "bmEmpty": "还没有书签", "bmEmpty2": "阅读时点段落，选「加书签」。", "bmCopyAll": "复制全部书签", "scopeBook": "本书", "scopeCore": "有中文版", "scopeOpen": "已开启", "scopeAll": "全部", "libAdd": "加入背诵", "pickFromBooks": "从书本中挑选段落", "searchPh2": "输入关键字（中文或英文）", "search": "搜寻", "searchTip": "全部书籍约 %1。中文只搜寻有中文版的书，英文可搜全部。", "noZhScope": "此范围内没有中文版的书。", "noScope": "此范围内没有可搜寻的书。", "searching": "搜寻中…", "searchingN": "已搜 %1／%2 本，找到 %3 段", "foundN": "找到 %1 段（%2 本书）", "notFound": "没有找到。", "moreN": "再显示 %1 笔（共 %2）", "titleHits": "书名符合", "nHits": "%1 段", "expandN": "展开其余 %1 段", "collapse": "收合", "moreBooksN": "再显示 %1 本书（尚有 %2 本）", "added": "已加", "libRemoved": "已移出背诵库", "libAdded": "已加入背诵库", "libEmpty": "背诵库还是空的", "libEmpty2": "按右下角「＋」搜寻关键字，或在阅读时点段落加入。", "libCount": "共 %1 段 ・ 记得 %2 ・ 忘记 %3", "libDelN": "删除选取的 %1 段", "libDelDone": "完成", "libDelToggle": "选取并删除", "lv": {"fill": "填充", "hint": "提示", "blank": "全空白"}, "vlvDesc": {"fill": "点空格可以单独显示一个词", "hint": "点任一句，可单独显示那一句", "blank": "点任一句，可单独显示那一句"}, "scoreline": "记得 %1 ・ 忘记 %2", "showAll": "显示全文", "reshuffle": "再练一次", "openInBook": "回到书中", "nextItem": "下一段", "forgot": "忘记", "got": "记得", "allDone": "这一轮做完了", "setLook": "外观", "setTheme": "主题", "themeDark": "深色", "themeLight": "浅色", "themeAuto": "跟随系统", "setOffline": "离线使用", "dlCore": "下载有中文版的书（%1 本，%2）", "dl": "下载", "dlAll": "下载全部 %1 本（%2）", "dlClear": "清除已下载的书", "clear": "清除", "clearAsk": "确定清除离线资料？", "cleared": "已清除", "dlDone": "已下载 %1 本", "dlFail": "，%1 本失败", "dlIng": "下载中 %1／%2　%3", "setLinks": "连结", "studyLink": "铭刻心版　研读版", "setVersion": "版本", "verLab": "版本", "verDate": "更新日期", "sourceNote": "App 仅供个人学习使用，不作商业用途。", "aiTag": "补译", "aiNote": "标示「补译」的段落，原书中文版缺少该段，为 AI 补译，非官方中文译本，仅供参考。"}, "en": {"fsTitle": "Text size", "fsNames": ["Small", "Standard", "Large", "X-Large", "Largest"], "fsReset": "Reset to standard", "showMode": "Display", "bi": "Bilingual", "mono": "Chinese only", "orderLbl": "Order", "zhTop": "Chinese first", "enTop": "English first", "back": "Back", "tabEgw": "EGW", "tabLib": "Memorize", "tabSet": "Settings", "pickMsg": "Open a book, tap a paragraph, then choose “Add to memorize list”.", "pickDone": "Done — back to list", "resume": "CONTINUE READING", "searchPh": "Search titles, or type DA 3.2 to jump to a reference", "homeHint": "Type a keyword and press search for full-text search. Chinese search covers books with a Chinese edition.", "bookmarks": "Bookmarks", "noBook": "No matching book. Press search for full-text.", "coreSec": "With Chinese edition (%1 books)", "cats": {"pinned": "Most read", "conflict": "Conflict of the Ages", "testimonies": "Testimonies & Messages", "devotion": "Devotional & Life", "compil": "Compilations", "gifts": "Spiritual Gifts & History", "health": "Health & Diet", "family": "Home & Education", "ministry": "Evangelism & Ministry", "bio": "Biography & History", "bible": "Bible Commentary", "mr": "Manuscript Releases", "st": "Signs of the Times", "per": "Other Periodicals & Broadsides", "pam": "Pamphlets", "other": "Other"}, "noZhSec": "No Chinese edition yet", "sortTitle": "By title", "sortYear": "By year", "bilingualTag": "EN/中", "zhOnlyTag": "中", "loading": "Loading…", "loadFail": "Failed to load. Check your connection.", "catFail": "Catalog not found. Make sure the data folder was uploaded.", "searchInBook": "Search this book, or enter a page (e.g. 120 or 120.3)", "lastRead": "LAST READ", "prev": "Previous", "next": "Next", "toc": "Contents", "longChap": "Long chapter: %1 parts, now part %2", "inLib": "In memorize list (tap to remove)", "addLib": "Add to memorize list", "bmDel": "Remove bookmark", "bmAdd": "Bookmark", "copyCite": "Copy with citation", "copyEn": "Copy English", "copyZh": "Copy Chinese", "copyLink": "Copy link", "bibleRefs": "Scripture (open in Study edition)", "copied": "Copied", "bmRemoved": "Bookmark removed", "bmAdded": "Bookmarked", "bmEmpty": "No bookmarks yet", "bmEmpty2": "Tap a paragraph while reading and choose Bookmark.", "bmCopyAll": "Copy all bookmarks", "scopeBook": "This book", "scopeCore": "With Chinese", "scopeOpen": "Opened", "scopeAll": "All", "libAdd": "Add passages", "pickFromBooks": "Pick paragraphs from books", "searchPh2": "Enter a keyword (Chinese or English)", "search": "Search", "searchTip": "All books ≈ %1. Chinese search covers books with a Chinese edition; English searches everything.", "noZhScope": "No Chinese edition in this scope.", "noScope": "Nothing to search in this scope.", "searching": "Searching…", "searchingN": "%1/%2 books, %3 hits", "foundN": "%1 hits in %2 books", "notFound": "No results.", "moreN": "Show %1 more (of %2)", "titleHits": "Matching titles", "nHits": "%1 hits", "expandN": "Show %1 more", "collapse": "Collapse", "moreBooksN": "Show %1 more books (%2 left)", "added": "Added", "libRemoved": "Removed from list", "libAdded": "Added to memorize list", "libEmpty": "Your memorize list is empty", "libEmpty2": "Tap “＋” to search a keyword, or tap a paragraph while reading.", "libCount": "%1 passages · %2 got it · %3 missed", "libDelN": "Delete %1 selected", "libDelDone": "Done", "libDelToggle": "Select & delete", "lv": {"fill": "Fill", "hint": "Hint", "blank": "Blank"}, "vlvDesc": {"fill": "Tap a blank to reveal one word", "hint": "Tap a phrase to reveal it", "blank": "Tap a phrase to reveal it"}, "scoreline": "Got %1 · Missed %2", "showAll": "Show full text", "reshuffle": "Try again", "openInBook": "Open in book", "nextItem": "Next", "forgot": "Forgot", "got": "Got it", "allDone": "Round complete", "setLook": "Appearance", "setTheme": "Theme", "themeDark": "Dark", "themeLight": "Light", "themeAuto": "System", "setOffline": "Offline use", "dlCore": "Download books with Chinese (%1 books, %2)", "dl": "Download", "dlAll": "Download all %1 books (%2)", "dlClear": "Clear downloaded books", "clear": "Clear", "clearAsk": "Clear offline data?", "cleared": "Cleared", "dlDone": "%1 books downloaded", "dlFail": ", %1 failed", "dlIng": "Downloading %1/%2  %3", "setLinks": "Links", "studyLink": "Textionary Study Edition", "setVersion": "Version", "verLab": "Version", "verDate": "Updated", "sourceNote": "This app is for personal study only, not for commercial use.", "aiTag": "AI translation", "aiNote": "Paragraphs marked \"AI translation\" are missing from the official Chinese edition and were translated by AI. They are not an official translation and are for reference only."}};
+var STR = {"zh": {"fsTitle": "字級", "fsNames": ["小", "標準", "大", "特大", "最大"], "fsReset": "回到標準字級", "showMode": "顯示", "bi": "中英對照", "mono": "只看中文", "orderLbl": "順序", "zhTop": "中文在上", "enTop": "英文在上", "back": "返回", "tabEgw": "懷著", "tabLib": "背誦庫", "tabSet": "設定", "pickMsg": "請進入書本，點選段落後按「加入背誦庫」。", "pickDone": "完成，回背誦庫", "resume": "繼續閱讀", "searchPh": "搜尋書名，或輸入 DA 3.2 直接跳到出處", "homeHint": "輸入關鍵字按搜尋鍵可全文檢索；中文只搜尋有中文版的書。", "bookmarks": "書籤", "noBook": "找不到符合的書。按搜尋鍵可全文檢索。", "coreSec": "有中文版（%1 本）", "cats": {"pinned": "常讀書籍", "conflict": "善惡之爭系列", "testimonies": "教會證言與信息", "devotion": "靈修與生活", "compil": "選粹與彙編", "gifts": "屬靈恩賜與歷史", "health": "健康與飲食", "family": "家庭與教育", "ministry": "佈道與事工", "bio": "傳記與史料", "bible": "聖經註釋", "mr": "文稿發佈", "st": "時兆期刊", "per": "其他期刊與單張", "pam": "小冊子", "other": "其他"}, "noZhSec": "尚無中文版", "sortTitle": "依書名", "sortYear": "依年份", "bilingualTag": "中英", "zhOnlyTag": "中文", "loading": "載入中…", "loadFail": "載入失敗，請確認網路後再試。", "catFail": "找不到書目資料，請確認 data 資料夾已上傳。", "searchInBook": "在本書內搜尋，或輸入頁碼（如 120 或 120.3）", "lastRead": "上次讀到", "prev": "上一章", "next": "下一章", "toc": "目錄", "longChap": "本章較長，分為 %1 段，目前第 %2 段", "inLib": "已在背誦庫（再按移除）", "addLib": "加入背誦庫", "bmDel": "移除書籤", "bmAdd": "加書籤", "copyCite": "複製（含出處）", "copyEn": "複製英文", "copyZh": "複製中文", "copyLink": "複製連結", "bibleRefs": "經文（在研讀版開啟）", "copied": "已複製", "bmRemoved": "已移除書籤", "bmAdded": "已加書籤", "bmEmpty": "還沒有書籤", "bmEmpty2": "閱讀時點段落，選「加書籤」。", "bmCopyAll": "複製全部書籤", "scopeBook": "本書", "scopeCore": "有中文版", "scopeOpen": "已開啟", "scopeAll": "全部", "libAdd": "加入背誦", "pickFromBooks": "從書本中挑選段落", "searchPh2": "輸入關鍵字（中文或英文）", "search": "搜尋", "searchTip": "全部書籍約 %1。中文只搜尋有中文版的書，英文可搜全部。", "noZhScope": "此範圍內沒有中文版的書。", "noScope": "此範圍內沒有可搜尋的書。", "searching": "搜尋中…", "searchingN": "已搜 %1／%2 本，找到 %3 段", "foundN": "找到 %1 段（%2 本書）", "notFound": "沒有找到。", "moreN": "再顯示 %1 筆（共 %2）", "titleHits": "書名符合", "pinEdit": "編輯常讀書籍", "pinDone": "完成編輯", "pinAdd": "加入常讀書籍", "pinDel": "移出常讀書籍", "pinAdded": "已加入常讀書籍", "pinRemoved": "已移出常讀書籍", "pinEmpty": "尚未加入。按上方「編輯常讀書籍」，再點書旁的星號。", "hlDel": "移除標記", "nHits": "%1 段", "expandN": "展開其餘 %1 段", "collapse": "收合", "moreBooksN": "再顯示 %1 本書（尚有 %2 本）", "added": "已加", "libRemoved": "已移出背誦庫", "libAdded": "已加入背誦庫", "libEmpty": "背誦庫還是空的", "libEmpty2": "按右下角「＋」搜尋關鍵字，或在閱讀時點段落加入。", "libCount": "共 %1 段 ・ 記得 %2 ・ 忘記 %3", "libDelN": "刪除選取的 %1 段", "libDelDone": "完成", "libDelToggle": "選取並刪除", "lv": {"fill": "填充", "hint": "提示", "blank": "全空白"}, "vlvDesc": {"fill": "點空格可以單獨顯示一個詞", "hint": "點任一句，可單獨顯示那一句", "blank": "點任一句，可單獨顯示那一句"}, "scoreline": "記得 %1 ・ 忘記 %2", "showAll": "顯示全文", "reshuffle": "再練一次", "openInBook": "回到書中", "nextItem": "下一段", "forgot": "忘記", "got": "記得", "allDone": "這一輪做完了", "setLook": "外觀", "setTheme": "主題", "themeDark": "深色", "themeLight": "淺色", "themeAuto": "跟隨系統", "setOffline": "離線使用", "dlCore": "下載有中文版的書（%1 本，%2）", "dl": "下載", "dlAll": "下載全部 %1 本（%2）", "dlClear": "清除已下載的書", "clear": "清除", "clearAsk": "確定清除離線資料？", "cleared": "已清除", "dlDone": "已下載 %1 本", "dlFail": "，%1 本失敗", "dlIng": "下載中 %1／%2　%3", "setLinks": "連結", "studyLink": "銘刻心版　研讀版", "setVersion": "版本", "verLab": "版本", "verDate": "更新日期", "sourceNote": "App 僅供個人學習使用，不作商業用途。", "aiTag": "補譯", "aiNote": "標示「補譯」的段落，原書中文版缺少該段，為 AI 補譯，非官方中文譯本，僅供參考。"}, "hans": {"fsTitle": "字级", "fsNames": ["小", "标准", "大", "特大", "最大"], "fsReset": "回到标准字级", "showMode": "显示", "bi": "中英对照", "mono": "只看中文", "orderLbl": "顺序", "zhTop": "中文在上", "enTop": "英文在上", "back": "返回", "tabEgw": "懷著", "tabLib": "背诵库", "tabSet": "设定", "pickMsg": "请进入书本，点选段落后按「加入背诵库」。", "pickDone": "完成，回背诵库", "resume": "继续阅读", "searchPh": "搜寻书名，或输入 DA 3.2 直接跳到出处", "homeHint": "输入关键字按搜寻键可全文检索；中文只搜寻有中文版的书。", "bookmarks": "书签", "noBook": "找不到符合的书。按搜寻键可全文检索。", "coreSec": "有中文版（%1 本）", "cats": {"pinned": "常读书籍", "conflict": "善恶之争系列", "testimonies": "教会证言与信息", "devotion": "灵修与生活", "compil": "选粹与汇编", "gifts": "属灵恩赐与历史", "health": "健康与饮食", "family": "家庭与教育", "ministry": "布道与事工", "bio": "传记与史料", "bible": "圣经注释", "mr": "文稿发布", "st": "时兆期刊", "per": "其他期刊与单张", "pam": "小册子", "other": "其他"}, "noZhSec": "尚无中文版", "sortTitle": "依书名", "sortYear": "依年份", "bilingualTag": "中英", "zhOnlyTag": "中文", "loading": "载入中…", "loadFail": "载入失败，请确认网路后再试。", "catFail": "找不到书目资料，请确认 data 资料夹已上传。", "searchInBook": "在本书内搜寻，或输入页码（如 120 或 120.3）", "lastRead": "上次读到", "prev": "上一章", "next": "下一章", "toc": "目录", "longChap": "本章较长，分为 %1 段，目前第 %2 段", "inLib": "已在背诵库（再按移除）", "addLib": "加入背诵库", "bmDel": "移除书签", "bmAdd": "加书签", "copyCite": "复制（含出处）", "copyEn": "复制英文", "copyZh": "复制中文", "copyLink": "复制连结", "bibleRefs": "经文（在研读版开启）", "copied": "已复制", "bmRemoved": "已移除书签", "bmAdded": "已加书签", "bmEmpty": "还没有书签", "bmEmpty2": "阅读时点段落，选「加书签」。", "bmCopyAll": "复制全部书签", "scopeBook": "本书", "scopeCore": "有中文版", "scopeOpen": "已开启", "scopeAll": "全部", "libAdd": "加入背诵", "pickFromBooks": "从书本中挑选段落", "searchPh2": "输入关键字（中文或英文）", "search": "搜寻", "searchTip": "全部书籍约 %1。中文只搜寻有中文版的书，英文可搜全部。", "noZhScope": "此范围内没有中文版的书。", "noScope": "此范围内没有可搜寻的书。", "searching": "搜寻中…", "searchingN": "已搜 %1／%2 本，找到 %3 段", "foundN": "找到 %1 段（%2 本书）", "notFound": "没有找到。", "moreN": "再显示 %1 笔（共 %2）", "titleHits": "书名符合", "pinEdit": "编辑常读书籍", "pinDone": "完成编辑", "pinAdd": "加入常读书籍", "pinDel": "移出常读书籍", "pinAdded": "已加入常读书籍", "pinRemoved": "已移出常读书籍", "pinEmpty": "尚未加入。按上方「编辑常读书籍」，再点书旁的星号。", "hlDel": "移除标记", "nHits": "%1 段", "expandN": "展开其余 %1 段", "collapse": "收合", "moreBooksN": "再显示 %1 本书（尚有 %2 本）", "added": "已加", "libRemoved": "已移出背诵库", "libAdded": "已加入背诵库", "libEmpty": "背诵库还是空的", "libEmpty2": "按右下角「＋」搜寻关键字，或在阅读时点段落加入。", "libCount": "共 %1 段 ・ 记得 %2 ・ 忘记 %3", "libDelN": "删除选取的 %1 段", "libDelDone": "完成", "libDelToggle": "选取并删除", "lv": {"fill": "填充", "hint": "提示", "blank": "全空白"}, "vlvDesc": {"fill": "点空格可以单独显示一个词", "hint": "点任一句，可单独显示那一句", "blank": "点任一句，可单独显示那一句"}, "scoreline": "记得 %1 ・ 忘记 %2", "showAll": "显示全文", "reshuffle": "再练一次", "openInBook": "回到书中", "nextItem": "下一段", "forgot": "忘记", "got": "记得", "allDone": "这一轮做完了", "setLook": "外观", "setTheme": "主题", "themeDark": "深色", "themeLight": "浅色", "themeAuto": "跟随系统", "setOffline": "离线使用", "dlCore": "下载有中文版的书（%1 本，%2）", "dl": "下载", "dlAll": "下载全部 %1 本（%2）", "dlClear": "清除已下载的书", "clear": "清除", "clearAsk": "确定清除离线资料？", "cleared": "已清除", "dlDone": "已下载 %1 本", "dlFail": "，%1 本失败", "dlIng": "下载中 %1／%2　%3", "setLinks": "连结", "studyLink": "铭刻心版　研读版", "setVersion": "版本", "verLab": "版本", "verDate": "更新日期", "sourceNote": "App 仅供个人学习使用，不作商业用途。", "aiTag": "补译", "aiNote": "标示「补译」的段落，原书中文版缺少该段，为 AI 补译，非官方中文译本，仅供参考。"}, "en": {"fsTitle": "Text size", "fsNames": ["Small", "Standard", "Large", "X-Large", "Largest"], "fsReset": "Reset to standard", "showMode": "Display", "bi": "Bilingual", "mono": "Chinese only", "orderLbl": "Order", "zhTop": "Chinese first", "enTop": "English first", "back": "Back", "tabEgw": "EGW", "tabLib": "Memorize", "tabSet": "Settings", "pickMsg": "Open a book, tap a paragraph, then choose “Add to memorize list”.", "pickDone": "Done — back to list", "resume": "CONTINUE READING", "searchPh": "Search titles, or type DA 3.2 to jump to a reference", "homeHint": "Type a keyword and press search for full-text search. Chinese search covers books with a Chinese edition.", "bookmarks": "Bookmarks", "noBook": "No matching book. Press search for full-text.", "coreSec": "With Chinese edition (%1 books)", "cats": {"pinned": "Most read", "conflict": "Conflict of the Ages", "testimonies": "Testimonies & Messages", "devotion": "Devotional & Life", "compil": "Compilations", "gifts": "Spiritual Gifts & History", "health": "Health & Diet", "family": "Home & Education", "ministry": "Evangelism & Ministry", "bio": "Biography & History", "bible": "Bible Commentary", "mr": "Manuscript Releases", "st": "Signs of the Times", "per": "Other Periodicals & Broadsides", "pam": "Pamphlets", "other": "Other"}, "noZhSec": "No Chinese edition yet", "sortTitle": "By title", "sortYear": "By year", "bilingualTag": "EN/中", "zhOnlyTag": "中", "loading": "Loading…", "loadFail": "Failed to load. Check your connection.", "catFail": "Catalog not found. Make sure the data folder was uploaded.", "searchInBook": "Search this book, or enter a page (e.g. 120 or 120.3)", "lastRead": "LAST READ", "prev": "Previous", "next": "Next", "toc": "Contents", "longChap": "Long chapter: %1 parts, now part %2", "inLib": "In memorize list (tap to remove)", "addLib": "Add to memorize list", "bmDel": "Remove bookmark", "bmAdd": "Bookmark", "copyCite": "Copy with citation", "copyEn": "Copy English", "copyZh": "Copy Chinese", "copyLink": "Copy link", "bibleRefs": "Scripture (open in Study edition)", "copied": "Copied", "bmRemoved": "Bookmark removed", "bmAdded": "Bookmarked", "bmEmpty": "No bookmarks yet", "bmEmpty2": "Tap a paragraph while reading and choose Bookmark.", "bmCopyAll": "Copy all bookmarks", "scopeBook": "This book", "scopeCore": "With Chinese", "scopeOpen": "Opened", "scopeAll": "All", "libAdd": "Add passages", "pickFromBooks": "Pick paragraphs from books", "searchPh2": "Enter a keyword (Chinese or English)", "search": "Search", "searchTip": "All books ≈ %1. Chinese search covers books with a Chinese edition; English searches everything.", "noZhScope": "No Chinese edition in this scope.", "noScope": "Nothing to search in this scope.", "searching": "Searching…", "searchingN": "%1/%2 books, %3 hits", "foundN": "%1 hits in %2 books", "notFound": "No results.", "moreN": "Show %1 more (of %2)", "titleHits": "Matching titles", "pinEdit": "Edit favorites", "pinDone": "Done", "pinAdd": "Add to favorites", "pinDel": "Remove from favorites", "pinAdded": "Added to favorites", "pinRemoved": "Removed from favorites", "pinEmpty": "Nothing yet. Tap “Edit favorites”, then the star next to a book.", "hlDel": "Remove", "nHits": "%1 hits", "expandN": "Show %1 more", "collapse": "Collapse", "moreBooksN": "Show %1 more books (%2 left)", "added": "Added", "libRemoved": "Removed from list", "libAdded": "Added to memorize list", "libEmpty": "Your memorize list is empty", "libEmpty2": "Tap “＋” to search a keyword, or tap a paragraph while reading.", "libCount": "%1 passages · %2 got it · %3 missed", "libDelN": "Delete %1 selected", "libDelDone": "Done", "libDelToggle": "Select & delete", "lv": {"fill": "Fill", "hint": "Hint", "blank": "Blank"}, "vlvDesc": {"fill": "Tap a blank to reveal one word", "hint": "Tap a phrase to reveal it", "blank": "Tap a phrase to reveal it"}, "scoreline": "Got %1 · Missed %2", "showAll": "Show full text", "reshuffle": "Try again", "openInBook": "Open in book", "nextItem": "Next", "forgot": "Forgot", "got": "Got it", "allDone": "Round complete", "setLook": "Appearance", "setTheme": "Theme", "themeDark": "Dark", "themeLight": "Light", "themeAuto": "System", "setOffline": "Offline use", "dlCore": "Download books with Chinese (%1 books, %2)", "dl": "Download", "dlAll": "Download all %1 books (%2)", "dlClear": "Clear downloaded books", "clear": "Clear", "clearAsk": "Clear offline data?", "cleared": "Cleared", "dlDone": "%1 books downloaded", "dlFail": ", %1 failed", "dlIng": "Downloading %1/%2  %3", "setLinks": "Links", "studyLink": "Textionary Study Edition", "setVersion": "Version", "verLab": "Version", "verDate": "Updated", "sourceNote": "This app is for personal study only, not for commercial use.", "aiTag": "AI translation", "aiNote": "Paragraphs marked \"AI translation\" are missing from the official Chinese edition and were translated by AI. They are not an official translation and are for reference only."}};
 var FS = [0.90, 1.00, 1.13, 1.28, 1.45];
 var CAT_ORDER = ["conflict","devotion","bio","health","family","ministry","testimonies","compil","bible","mr","st","per","pam","gifts","other"];
-var PINNED = ["SC","MB","DA","GC","PP","PK","AA","EW","COL","MH","Ed"];
-var HOMEEXP = {};
+var PINS = lsGet("egw.pins", []);          // user-chosen frequent books
+var HOMEEXP = lsGet("egw.exp", {});       // open/closed state of home groups (default closed)
+var HOMEEDIT = false, HOMEY = null, TOCEXP = {}, TOCCTX = null, SEARCHY = {};
+var EGWZ = {"先祖與先知": "PP", "先祖与先知": "PP", "先祖和先知": "PP", "先知與君王": "PK", "先知与君王": "PK", "先知和君王": "PK", "歷代願望": "DA", "历代愿望": "DA", "使徒行述": "AA", "善惡之爭": "GC", "善恶之争": "GC", "服務真詮": "MH", "服务真诠": "MH", "基督比喻實訓": "COL", "基督比喻实训": "COL", "教育論": "Ed", "教育论": "Ed", "給傳道人的證言": "TM", "给传道人的证言": "TM", "救贖的故事": "SR", "救赎的故事": "SR", "基督教育原理": "FE", "基督教育之研究": "CT", "拾級就主": "SC", "拾级就主": "SC", "拾級救主": "SC", "拾级救主": "SC", "喜樂的泉源": "SC", "喜乐的泉源": "SC", "早期著作": "EW", "福山寶訓": "MB", "福山宝训": "MB", "佈道論": "Ev", "布道论": "Ev", "傳道論": "Ev", "传道论": "Ev", "傳道良助": "GW", "传道良助": "GW", "醫療佈道論": "MM", "医疗布道论": "MM", "成聖的人生": "SL", "成圣的人生": "SL", "成聖的生活": "SL", "成圣的生活": "SL", "健康勉言": "CH", "衛生勉言": "CH", "卫生勉言": "CH", "論飲食": "CD", "论饮食": "CD", "復臨信徒家庭": "AH", "复临信徒家庭": "AH", "復臨信徒的家庭": "AH", "复临信徒的家庭": "AH", "論節制": "Te", "论节制": "Te", "懷愛倫傳略": "LS", "怀爱伦传略": "LS", "懷氏傳略": "LS", "怀氏传略": "LS", "論福利工作": "WM", "论福利工作": "WM", "福利工作": "WM", "安息日學訓言": "CSW", "安息日学训言": "CSW", "安息日學工作的勉言": "CSW", "安息日学工作的勉言": "CSW", "兒童教育指南": "CG", "儿童教育指南": "CG", "給管家的勉言": "CS", "给管家的勉言": "CS", "論管家": "CS", "论管家": "CS", "對作者和編輯的勉言": "CW", "对作者和编辑的勉言": "CW", "編輯寫作勉言": "CW", "编辑写作勉言": "CW", "給編輯和作者的勉言": "CW", "给编辑和作者的勉言": "CW", "文字佈道": "CM", "文字布道": "CM", "文字佈道士": "CEv", "文字布道士": "CEv", "基督徒的服務": "ChS", "基督徒的服务": "ChS", "基督徒服務大全": "ChS", "基督徒服务大全": "ChS", "給青年人的信息": "MYP", "给青年人的信息": "MYP", "給青年的信息": "MYP", "给青年的信息": "MYP", "給青年人信息": "MYP", "给青年人信息": "MYP", "告青年書": "MYP", "告青年书": "MYP", "基督徒節制和聖經衛生": "CTBH", "基督徒节制和圣经卫生": "CTBH", "歷": "DA", "历": "DA", "祖知": "PP", "祖": "PP", "知君": "PK", "述": "AA", "善": "GC", "福山": "MB", "天路": "COL", "傳證": "TM", "传证": "TM", "洛馬林達信息": "LLM", "洛马林达信息": "LLM", "羅馬琳達信息": "LLM", "罗马琳达信息": "LLM"};
 
 /* ============ helpers ============ */
 function $(id){ return document.getElementById(id); }
@@ -987,10 +1013,19 @@ function bookRow(b){
   var title = bt(b);
   var sub = ((P.lang === "en" || (P.lang === "hans" ? (b.cn || b.zh) : b.zh)) ? "" : b.en) + (b.y ? ((P.lang === "en" || (P.lang === "hans" ? (b.cn || b.zh) : b.zh)) ? "" : " · ") + b.y : "") + (b.nzh ? " · " + (b.n ? L().bilingualTag : L().zhOnlyTag) : "");
   sub = sub.replace(/^ · /, "");
-  return '<button class="trow" data-go="#/b/' + esc(b.c) + '"><span class="pagebadge">' + esc(b.c) + "</span>" +
+  var row = '<button class="trow" data-go="#/b/' + esc(b.c) + '"><span class="pagebadge">' + esc(b.c) + "</span>" +
     '<span class="trow-main"><span class="trow-zh">' + esc(title) + "</span>" +
     (sub ? '<span class="trow-en" style="letter-spacing:.02em;font-family:var(--f-ui);font-weight:400">' + esc(sub) + "</span>" : "") +
-    '</span><span class="chev">›</span></button>';
+    '</span>' + (HOMEEDIT ? "" : '<span class="chev">›</span>') + '</button>';
+  if(!HOMEEDIT) return row;
+  var on = PINS.indexOf(b.c) >= 0;
+  return '<div class="trow2">' + row + '<button class="pinbtn' + (on ? " on" : "") + '" data-pin="' + esc(b.c) + '" aria-label="pin">' + (on ? "★" : "☆") + "</button></div>";
+}
+function savePins(){ lsSet("egw.pins", PINS); }
+function togglePin(c){
+  var k = PINS.indexOf(c);
+  if(k >= 0){ PINS.splice(k, 1); toast(L().pinRemoved); } else { PINS.push(c); toast(L().pinAdded); }
+  savePins();
 }
 var HOMEQ = "";
 function viewHome(){
@@ -1005,15 +1040,21 @@ function viewHome(){
     '<form id="hsf"><input class="search" id="hq" type="search" placeholder="' + esc(s.searchPh) + '" autocomplete="off" enterkeyhint="search" value="' + esc(HOMEQ) + '"></form>' +
     '<div class="hint">' + esc(s.homeHint) + "</div>" + resume +
     '<button class="xref" data-go="#/bm">' + esc(s.bookmarks) + '<span class="chev">›</span></button>' +
-    '<div id="blist">' + bookListHTML("") + "</div></div></main>";
+    '<div id="blist">' + bookListHTML(HOMEQ.trim()) + "</div></div></main>";
   setApp(html, "egw");
+  if(HOMEY != null && KEEPY == null) window.scrollTo(0, HOMEY);
   var q = $("hq");
   q.addEventListener("input", function(){ HOMEQ = q.value; $("blist").innerHTML = bookListHTML(q.value.trim()); });
   $("hsf").addEventListener("submit", function(e){ e.preventDefault(); submitQuery(q.value.trim()); q.blur(); });
 }
-var ALIAS = { GC: "善惡的鬥爭 善惡鬥爭 大鬥爭 大斗爭 善恶的斗争 善恶斗争 大斗争 great controversy", GC88: "善惡的鬥爭 善惡鬥爭 大鬥爭 大斗爭 善恶的斗争 善恶斗争 大斗争 great controversy" };
+var ALIAS = { GC: "善惡的鬥爭 善惡鬥爭 大鬥爭 大斗爭 善恶的斗争 善恶斗争 大斗争 great controversy", GC88: "善惡的鬥爭 善惡鬥爭 大鬥爭 大斗爭 善恶的斗争 善恶斗争 大斗争 great controversy",
+  SC: "拾級就主 拾級救主 拾级就主 拾级救主 steps to christ", LLM: "洛馬林達信息 洛马林达信息 loma linda messages" };
 function bookHay(b){ return (b.c + " " + (b.en || "") + " " + (b.zh || "") + " " + (b.cn || "") + " " + (ALIAS[b.c] || "")).toLowerCase(); }
 function bookMatch(b, terms){ var h = bookHay(b), k; for(k = 0; k < terms.length; k++){ if(h.indexOf(terms[k]) < 0) return false; } return true; }
+function editBar(){
+  var s = L();
+  return '<div class="bsort"><button class="btn btn-wide' + (HOMEEDIT ? " btn-brass" : "") + '" data-pinedit="1">' + esc(HOMEEDIT ? s.pinDone : s.pinEdit) + "</button></div>";
+}
 function bookListHTML(q){
   var s = L(), ql = q.toLowerCase(), list;
   if(q){
@@ -1022,12 +1063,11 @@ function bookListHTML(q){
     if(!list.length) return '<div class="empty">' + esc(s.noBook) + "</div>";
     return '<div class="tlist">' + list.map(bookRow).join("") + "</div>";
   }
-  var zhBooks = CAT.filter(hasZh), html = bsortSeg(), used = {};
-  var pin = PINNED.map(function(c){ return bk(c); }).filter(function(b){ return b && hasZh(b); });
-  pin.forEach(function(b){ used[b.c] = 1; });
-  if(pin.length) html += '<div class="sub"><em>' + esc(s.cats.pinned) + '</em></div><div class="tlist">' + pin.map(bookRow).join("") + "</div>";
+  var zhBooks = CAT.filter(hasZh), html = editBar();
+  var pin = PINS.map(function(c){ return bk(c); }).filter(function(b){ return b; });
+  html += groupHTML(s.cats.pinned, pin, "zpin", s.pinEmpty);
   CAT_ORDER.forEach(function(k){
-    var l = zhBooks.filter(function(b){ return !used[b.c] && b.k === k; });
+    var l = zhBooks.filter(function(b){ return b.k === k; });
     if(l.length) html += groupHTML(s.cats[k], sortBooks(l), "z" + k);
   });
   var rest = CAT.filter(function(b){ return !hasZh(b); });
@@ -1041,25 +1081,17 @@ function bookListHTML(q){
   return html;
 }
 var ECOLL = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
-function yrOf(b){ var y = parseInt(b.y, 10); return isNaN(y) ? 9999 : y; }
 function sortBooks(list){
   var a = list.slice();
-  if(P.bsort === "year") a.sort(function(x, y){ return (yrOf(x) - yrOf(y)) || ECOLL.compare(x.c, y.c); });
-  else if(P.lang === "en") a.sort(function(x, y){ return ECOLL.compare(x.en, y.en) || ECOLL.compare(x.c, y.c); });
+  if(P.lang === "en") a.sort(function(x, y){ return ECOLL.compare(x.en, y.en) || ECOLL.compare(x.c, y.c); });
   else a.sort(function(x, y){ return (/^\dT$/.test(y.c) - /^\dT$/.test(x.c)) || ((x.s == null ? 99999 : x.s) - (y.s == null ? 99999 : y.s)) || ECOLL.compare(x.c, y.c); });
   return a;
 }
-function bsortSeg(){
-  var s = L();
-  return '<div class="bsort"><div class="seg" role="group">' + [["title", s.sortTitle], ["year", s.sortYear]].map(function(k){
-    return '<button data-bsort="' + k[0] + '" aria-pressed="' + ((P.bsort || "title") === k[0]) + '">' + esc(k[1]) + "</button>";
-  }).join("") + "</div></div>";
-}
-function groupHTML(label, list, key){
-  var fold = /^[ze](st|per|pam)$/.test(key), open = !fold || !!HOMEEXP[key], head;
-  if(fold) head = '<button class="gtog" data-gtog="' + key + '"><em>' + esc(label) + "（" + list.length + '）</em><span class="chev">' + (open ? "⌄" : "›") + "</span></button>";
-  else head = '<div class="sub"><em>' + esc(label) + "（" + list.length + "）</em></div>";
-  return head + (open ? '<div class="tlist">' + list.map(bookRow).join("") + "</div>" : "");
+function groupHTML(label, list, key, emptyMsg){
+  var open = !!HOMEEXP[key];
+  var head = '<button class="gtog" data-gtog="' + key + '"><em>' + esc(label) + "（" + list.length + '）</em><span class="chev">' + (open ? "⌄" : "›") + "</span></button>";
+  if(!open) return head;
+  return head + (list.length ? '<div class="tlist">' + list.map(bookRow).join("") + "</div>" : '<div class="hint" style="margin:4px 2px 12px">' + esc(emptyMsg || "") + "</div>");
 }
 function parseRef(q){
   var m = /^([A-Za-z0-9]+)\s*[ :.]\s*(\d+)(?:[.:](\d+))?$/.exec(q.trim());
@@ -1089,19 +1121,13 @@ function viewToc(c){
     var pos = POS[meta.c], html = "";
     html += '<div class="thead"><h1>' + esc(bt(meta)) + "</h1>" + (P.lang === "en" ? "" : '<div class="en">' + esc(meta.en) + "</div>") +
       '<div class="src">' + esc(meta.c + (meta.y ? " · " + meta.y : "")) + "</div></div>";
+    html += '<div id="pinbtn">' + pinBtnHTML(meta.c) + "</div>";
     html += '<form id="bsf" class="bsf"><input class="search" id="bsq" type="search" placeholder="' + esc(s.searchInBook) + '" autocomplete="off" enterkeyhint="search"></form>';
     if(pos) html += '<button class="resume" data-go="#/b/' + esc(meta.c) + "/i" + pos.i + '"><b>' + esc(s.lastRead) + "</b><span>" + esc(pos.t || pos.r || "") + "</span></button>";
-    html += '<div class="tlist" style="margin-top:10px">';
-    b.chap.forEach(function(ch){
-      if(ch.isPart){
-        html += '<div class="tocpart">' + esc(ch.en || chTitle(ch)) + (ch.en && chTitle(ch) !== ch.en ? "　" + esc(chTitle(ch)) : "") + "</div>";
-        if(!ch.noBody) html += tocRow(meta.c, ch, b);
-        return;
-      }
-      html += tocRow(meta.c, ch, b);
-    });
-    html += "</div>";
+    TOCCTX = { meta: meta, b: b };
+    html += '<div id="tocl">' + tocListHTML(meta, b) + "</div>";
     shell(html);
+    if(SEARCHY[location.hash] != null && KEEPY == null) window.scrollTo(0, SEARCHY[location.hash]);
     $("bsf").addEventListener("submit", function(e){
       e.preventDefault(); var v = $("bsq").value.trim(); if(!v) return;
       var r = /^(\d+)(?:[.:](\d+))?$/.exec(v);
@@ -1109,6 +1135,52 @@ function viewToc(c){
       go("#/s/" + encodeURIComponent(v) + "?b=" + meta.c);
     });
   }).catch(function(){ shell('<div class="empty">' + esc(s.loadFail) + "</div>"); });
+}
+function pinBtnHTML(c){
+  var on = PINS.indexOf(c) >= 0, s = L();
+  return '<button class="btn btn-wide' + (on ? " btn-sage" : "") + '" style="margin:0 0 10px" data-pinbook="' + esc(c) + '">' + (on ? "★ " + esc(s.pinDel) : "☆ " + esc(s.pinAdd)) + "</button>";
+}
+function refreshPinBtn(){ var el = $("pinbtn"); if(el && VIEW && VIEW.c) el.innerHTML = pinBtnHTML(VIEW.c); }
+var MONTHZ = /^\s*([一二三四五六七八九十]+月)(?=\S|\s|$)/;
+function chTitleZ(ch){ return (P.lang === "hans" ? (ch.cn || ch.tw) : (ch.tw || ch.cn)) || ""; }
+function isDaily(b){
+  if(b.daily != null) return b.daily;
+  var n = 0; b.chap.forEach(function(ch){ if(!ch.isPart && MONTHZ.test(chTitleZ(ch))) n++; });
+  b.daily = n >= 300; return b.daily;
+}
+function tocListHTML(meta, b){
+  var out = "";
+  if(isDaily(b)){
+    var groups = [], cur = null;
+    b.chap.forEach(function(ch){
+      var z = chTitleZ(ch), m = MONTHZ.exec(z);
+      if(ch.isPart && m && /^\s*[一二三四五六七八九十]+月\s+\S/.test(z) && ch.noBody){
+        cur = { m: m[1], theme: z.replace(MONTHZ, "").trim(), rows: [] }; groups.push(cur); return;
+      }
+      if(m && (!cur || cur.m !== m[1])){ cur = { m: m[1], theme: "", rows: [] }; groups.push(cur); }
+      if(!cur){ cur = { m: "", theme: "", rows: [] }; groups.push(cur); }
+      cur.rows.push(ch);
+    });
+    groups.forEach(function(g, gi){
+      var key = meta.c + "|" + gi, open = !!TOCEXP[key];
+      var dayN = g.rows.filter(function(ch){ return !ch.isPart && MONTHZ.test(chTitleZ(ch)); }).length;
+      var label = g.m ? g.m + (g.theme ? "　" + g.theme : "") : (chTitleZ(g.rows[0]) || "—");
+      out += '<button class="gtog" data-mtog="' + esc(key) + '"><em>' + esc(label) + (dayN ? "（" + dayN + "）" : "") + '</em><span class="chev">' + (open ? "⌄" : "›") + "</span></button>";
+      if(open) out += '<div class="tlist">' + g.rows.map(function(ch){ return tocOne(meta.c, ch, b); }).join("") + "</div>";
+    });
+    return out;
+  }
+  out += '<div class="tlist" style="margin-top:10px">';
+  b.chap.forEach(function(ch){ out += tocOne(meta.c, ch, b); });
+  return out + "</div>";
+}
+function tocOne(c, ch, b){
+  if(ch.isPart){
+    var h = '<div class="tocpart">' + esc(ch.en || chTitle(ch)) + (ch.en && chTitle(ch) !== ch.en ? "　" + esc(chTitle(ch)) : "") + "</div>";
+    if(!ch.noBody) h += tocRow(c, ch, b);
+    return h;
+  }
+  return tocRow(c, ch, b);
 }
 function tocRow(c, ch, b){
   var m = /^(Chapter|Section|Part|Article)\s+(\d+)[—–-](.*)$/i.exec(ch.en);
@@ -1184,6 +1256,7 @@ function renderReader(meta, b, tgt){
   var html = bar(backBtn("#/b/" + meta.c) + '<span class="bar-title">' + esc(bt(meta)) + "<small>" + esc(chapShort(ch)) + "</small></span>") +
     '<main><div class="wrap" id="rd">' + fsPanel() + pickBanner() + rdHTML(meta, b, ci, s0, e0, sp, spn) + "</div></main>";
   setApp(html, "egw");
+  applyHL(document);
   if(!keep){
     var el = $("r" + tgt);
     if(el){
@@ -1196,15 +1269,243 @@ function renderReader(meta, b, tgt){
   LAST = meta.c; lsSet("egw.last", LAST);
   trackPos(meta, b);
 }
+/* ============ in-text links: EGW citations → book pages, Bible refs → study app ============ */
+var EGWV = {"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9,"1":1,"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9};
+var EGW_VOL = "(?:卷\\s*[一二三四五六七八九1-9]\\s*[卷冊册]?|第\\s*[一二三四五六七八九1-9]\\s*[卷冊册])";
+var EGW_ZRE = new RegExp("(《([^》<]{1,14})》\\s*(" + EGW_VOL + ")?\\s*(?:原文)?\\s*(?:第\\s*)?)(\\d{1,4})(?!\\d)(?!\\s*章)((?:\\s*[-–—,，、]\\s*\\d{1,4})*)(\\s*[頁页]?)", "g");
+var EGW_CRE = /《([^》<]{1,14})》\s*(?:第\s*)?([一二三四五六七八九十百零〇\d]+)((?:\s*[、,，]\s*[一二三四五六七八九十百零〇\d]+)*)\s*章/g;
+var EGW_ERE = null;
+function zhNum(x){
+  if(/^\d+$/.test(x)) return +x;
+  var D = {"零":0,"〇":0,"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9}, n = 0, cur = 0, i, ch;
+  for(i = 0; i < x.length; i++){
+    ch = x[i];
+    if(ch === "百"){ n += (cur || 1) * 100; cur = 0; }
+    else if(ch === "十"){ n += (cur || 1) * 10; cur = 0; }
+    else if(ch in D) cur = cur * (x.length > 1 && /^[零〇一二三四五六七八九]+$/.test(x) ? 10 : 1) + D[ch];
+  }
+  return n + cur;
+}
+var ZHDYN = null;
+function egwCode(title, vol){
+  var n = vol ? EGWV[vol.replace(/[卷第冊册\s]/g, "")] : 0;
+  if(title === "證" || title === "證言" || title === "教會證言" || title === "证" || title === "证言" || title === "教会证言") return n ? n + "T" : "";
+  if(title === "預言之靈" || title === "聖靈的啟示" || title === "预言之灵" || title === "圣灵的启示") return n ? n + "SP" : "";
+  if(title === "屬靈的恩賜" || title === "屬靈恩賜" || title === "属灵的恩赐" || title === "属灵恩赐") return (n && n <= 3) ? n + "SG" : "";
+  if(EGWZ[title]) return EGWZ[title];
+  if(!ZHDYN){ ZHDYN = {}; CAT.forEach(function(b){ if(b.zh && !ZHDYN[b.zh]) ZHDYN[b.zh] = b.c; if(b.cn && !ZHDYN[b.cn]) ZHDYN[b.cn] = b.c; }); }
+  return ZHDYN[title] || "";
+}
+function egwA(code, page, txt){ return '<a class="egwlk" data-go="#/b/' + code + "/" + page + '">' + txt + "</a>"; }
+/* run fn over text pieces only (outside tags and existing links) */
+function mapText(h, fn){
+  return h.replace(/(<a [^>]*>[\s\S]*?<\/a>)|(<[^>]+>)|([^<]+)/g, function(all, a, tag, txt){ return txt != null ? fn(txt) : all; });
+}
+function egwLinks(h){
+  if(h.indexOf("《") >= 0){
+    h = mapText(h, function(txt){
+      txt = txt.replace(EGW_CRE, function(all, title, n1, rest){
+        var code = egwCode(title, "");
+        if(!code) return all;
+        var nums = [n1].concat((rest.match(/[一二三四五六七八九十百零〇\d]+/g) || [])), k;
+        if(nums.some(function(x){ var v = zhNum(x); return !(v >= 1 && v <= 90); })) return all;
+        var head = all.slice(0, all.indexOf(n1, all.indexOf("》")) + n1.length);
+        var out = egwA(code, "ch" + zhNum(n1), head), tail = all.slice(head.length), pos = 0;
+        for(k = 1; k < nums.length; k++){
+          var at = tail.indexOf(nums[k], pos);
+          out += tail.slice(pos, at) + egwA(code, "ch" + zhNum(nums[k]), nums[k]);
+          pos = at + nums[k].length;
+        }
+        return out + tail.slice(pos);
+      });
+      return txt;
+    });
+    h = mapText(h, function(txt){
+      return txt.replace(/(《[^》<]{1,14}》[^<《]{0,40})/g, function(seg){
+        return seg.replace(EGW_ZRE, function(m, pre, title, vol, page, rest, suf){
+          var code = egwCode(title, vol);
+          if(!code) return m;
+          var out = egwA(code, page, pre + page);
+          out += rest.replace(/\d{1,4}/g, function(n){ return egwA(code, n, n); });
+          return out + suf;
+        });
+      });
+    });
+  }
+  if(h.indexOf(" ") >= 0 && /\d/.test(h)){
+    if(!EGW_ERE){
+      var codes = CAT.map(function(b){ return b.c; }).filter(function(c){ return /^[1-9]?[A-Za-z]{1,6}$/.test(c) && c.length >= 2; });
+      codes.sort(function(a, b){ return b.length - a.length; });
+      EGW_ERE = new RegExp("\\b(" + codes.join("|") + ")\\s(\\d{1,4})(?![\\d:])", "g");
+    }
+    h = mapText(h, function(txt){
+      return txt.replace(/\([^()<]{2,90}\)/g, function(par){
+        return par.replace(EGW_ERE, function(m, code, page){ return egwA(code, page, m); });
+      });
+    });
+  }
+  return h;
+}
+var BIB_ENRE = /\b((?:[123]\s)?[A-Z][a-z]+(?:\sof\s[A-Z][a-z]+)?)\.?\s(\d{1,3}):(\d{1,3})((?:[-–]\d{1,3})?)/g;
+function bibA(bi, c, v, txt){ return '<a class="biblk" data-bib="' + bi + "." + c + "." + v + '">' + txt + "</a>"; }
+function bibLinks(h){
+  return mapText(h, function(txt){
+    txt = txt.replace(BIB_ENRE, function(m, nm, c, v, rg){
+      var key = nm.toLowerCase(), bi = BNAMES[key];
+      if(!bi){ var parts = key.split(" "); if(parts.length > 1 && /^[123]$/.test(parts[0])) bi = BNAMES[parts[0] + " " + parts[1].slice(0, 4)]; }
+      return bi ? bibA(bi, c, v, m) : m;
+    });
+    if(/[^\x00-\x7f]/.test(txt)){
+      ZHRE.lastIndex = 0;
+      txt = txt.replace(ZHRE, function(m, nm, c, v){ var bi = ZHMAP[nm]; return bi ? bibA(bi, c, v, m) : m; });
+    }
+    return txt;
+  });
+}
+function linkify(h){ return bibLinks(egwLinks(h)); }
+
+/* ============ highlights (same colors / gestures as the study edition) ============ */
+var HL = lsGet("egw.hl", []);
+var HLBAR = null;
+function hlSave(){ lsSet("egw.hl", HL); }
+function hlNewId(){ return "h" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function hlLangOf(blk){ return blk.classList.contains("en") ? "en" : (P.lang === "hans" ? "hans" : "zh"); }
+function hlBlocks(para, lang){
+  return Array.prototype.filter.call(para.children, function(b){
+    return (b.tagName === "P" || b.tagName === "BLOCKQUOTE") && (lang === "en" ? b.classList.contains("en") : b.classList.contains("zh"));
+  });
+}
+function hlNodes(blocks){
+  var out = [];
+  blocks.forEach(function(b){
+    var w = document.createTreeWalker(b, NodeFilter.SHOW_TEXT, null, false), n;
+    while((n = w.nextNode())) out.push(n);
+  });
+  return out;
+}
+function hlText(nodes){ return nodes.map(function(n){ return n.nodeValue; }).join(""); }
+function hlWrap(nodes, h){
+  var pos = 0;
+  nodes.forEach(function(n){
+    var len = n.nodeValue.length, a = pos, b = pos + len; pos = b;
+    var s = Math.max(h.s, a), e = Math.min(h.e, b); if(e <= s) return;
+    var x = n, off = s - a;
+    if(off > 0) x = x.splitText(off);
+    if(e - s < x.nodeValue.length) x.splitText(e - s);
+    var sp = document.createElement("span"); sp.className = "hl hl-" + h.color; sp.setAttribute("data-hl", h.id);
+    x.parentNode.insertBefore(sp, x); sp.appendChild(x);
+  });
+}
+function applyHL(root){
+  if(!HL.length || !VIEW || VIEW.name !== "reader") return;
+  var paras = (root || document).querySelectorAll ? (root.classList && root.classList.contains("para") ? [root] : (root || document).querySelectorAll(".para")) : [];
+  Array.prototype.forEach.call(paras, function(para){
+    var i = +para.getAttribute("data-i");
+    HL.forEach(function(h){
+      if(h.c !== VIEW.c || h.i !== i) return;
+      if(h.l !== "en" && h.l !== (P.lang === "hans" ? "hans" : "zh")) return;
+      var blocks = hlBlocks(para, h.l);
+      if(!blocks.length) return;
+      var nodes = hlNodes(blocks);
+      if(hlText(nodes).slice(h.s, h.e) !== h.t) return;
+      hlWrap(nodes, h);
+    });
+  });
+}
+function hlOffsetAt(nodes, node, off){
+  var pos = 0, i, pr;
+  if(node.nodeType === 3){
+    var k = nodes.indexOf(node);
+    if(k >= 0){ for(i = 0; i < k; i++) pos += nodes[i].nodeValue.length; return pos + off; }
+  }
+  try{ pr = document.createRange(); pr.setStart(node, off); pr.collapse(true); }catch(e){ return null; }
+  for(i = 0; i < nodes.length; i++){
+    var n = nodes[i], c;
+    try{ c = pr.comparePoint(n, n.nodeValue.length); }catch(e){ return null; }
+    if(c <= 0) pos += n.nodeValue.length;
+  }
+  return pos;
+}
+function hlCurrent(){
+  if(!VIEW || VIEW.name !== "reader") return null;
+  var sel = window.getSelection && window.getSelection();
+  if(!sel || sel.isCollapsed || !sel.rangeCount) return null;
+  var r = sel.getRangeAt(0), sn = r.startContainer, el = sn.nodeType === 3 ? sn.parentNode : sn;
+  if(!el || !el.closest) return null;
+  var blk = el.closest("p.zh, p.en, blockquote.en, blockquote.zh"), para = blk && blk.closest(".para");
+  if(!para || !$("rd") || !$("rd").contains(para)) return null;
+  var lang = hlLangOf(blk), nodes = hlNodes(hlBlocks(para, lang));
+  var s = hlOffsetAt(nodes, r.startContainer, r.startOffset), e = hlOffsetAt(nodes, r.endContainer, r.endOffset);
+  if(s == null || e == null || e <= s) return null;
+  var txt = hlText(nodes);
+  return { c: VIEW.c, i: +para.getAttribute("data-i"), l: lang, s: s, e: e, t: txt.slice(s, e), rect: r.getBoundingClientRect() };
+}
+function hlDrop(){ if(HLBAR){ HLBAR.remove(); HLBAR = null; } }
+function hlSwatches(attr){
+  return ["yellow", "orange", "red"].map(function(c){ return '<button class="hl-color-btn hl-' + c + '" ' + attr + '="' + c + '" aria-label="' + c + '"></button>'; }).join("");
+}
+function hlBar(rect, html, wire){
+  hlDrop();
+  var tb = document.createElement("div"); tb.className = "hl-toolbar";
+  tb.innerHTML = '<div class="hl-menu">' + html + "</div>";
+  document.body.appendChild(tb); HLBAR = tb;
+  var w = tb.offsetWidth || 180, x = Math.max(8, Math.min(rect.left, window.innerWidth - w - 8));
+  var top = rect.top - tb.offsetHeight - 10;
+  if(top < 8) top = Math.min(rect.bottom + 10, window.innerHeight - tb.offsetHeight - 8);
+  tb.style.left = x + "px"; tb.style.top = Math.max(8, top) + "px";
+  wire(tb);
+}
+function redrawPara(c, i){
+  var el = $("r" + i); if(!el || !BK[c]) return;
+  var tmp = document.createElement("div"); tmp.innerHTML = paraHTML(bk(c), BK[c].rows[i], i);
+  var n = tmp.firstChild; if(!n) return;
+  if(el.classList.contains("sel")) n.classList.add("sel");
+  el.replaceWith(n); if(obs) obs.observe(n); applyHL(n);
+}
+function hlPick(){
+  var cur = hlCurrent(); if(!cur) return;
+  hlBar(cur.rect, hlSwatches("data-hlnew"), function(tb){
+    tb.querySelectorAll("[data-hlnew]").forEach(function(btn){
+      btn.addEventListener("click", function(ev){
+        ev.preventDefault(); ev.stopPropagation();
+        HL = HL.filter(function(h){ return !(h.c === cur.c && h.i === cur.i && h.l === cur.l && h.s < cur.e && cur.s < h.e); });
+        HL.push({ id: hlNewId(), c: cur.c, i: cur.i, l: cur.l, s: cur.s, e: cur.e, t: cur.t, color: btn.getAttribute("data-hlnew") });
+        hlSave();
+        try{ window.getSelection().removeAllRanges(); }catch(x){}
+        hlDrop(); redrawPara(cur.c, cur.i);
+      });
+    });
+  });
+}
+function hlEdit(el){
+  var id = el.getAttribute("data-hl"), h = null; HL.forEach(function(x){ if(x.id === id) h = x; });
+  if(!h) return;
+  hlBar(el.getBoundingClientRect(), hlSwatches("data-hlset") + '<button class="hl-del" data-hlrm="1">' + esc(L().hlDel) + "</button>", function(tb){
+    tb.querySelectorAll("[data-hlset]").forEach(function(btn){
+      btn.addEventListener("click", function(ev){ ev.preventDefault(); ev.stopPropagation(); h.color = btn.getAttribute("data-hlset"); hlSave(); hlDrop(); redrawPara(h.c, h.i); });
+    });
+    tb.querySelector("[data-hlrm]").addEventListener("click", function(ev){
+      ev.preventDefault(); ev.stopPropagation();
+      HL = HL.filter(function(x){ return x.id !== id; }); hlSave(); hlDrop(); redrawPara(h.c, h.i);
+    });
+  });
+}
+var hlSelT = null;
+document.addEventListener("selectionchange", function(){
+  clearTimeout(hlSelT);
+  if(!VIEW || VIEW.name !== "reader"){ return; }
+  hlSelT = setTimeout(function(){ if(hlCurrent()) hlPick(); else hlDrop(); }, 450);
+});
+
 function blocksEn(tx, alt){
   return String(tx).split("\n").map(function(x){
     var q = x.indexOf("> ") === 0; if(q) x = x.slice(2);
-    var h = esc(x).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+    var h = linkify(esc(x).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"));
     return q ? '<blockquote class="en' + (alt ? " alt" : "") + '">' + h + "</blockquote>" : '<p class="en' + (alt ? " alt" : "") + '">' + h + "</p>";
   }).join("");
 }
 function blocksZh(tx, alt){
-  return String(tx).split("\n").map(function(x){ return x.trim() ? '<p class="zh' + (alt ? " alt" : "") + '">' + esc(x).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>") + "</p>" : ""; }).join("");
+  return String(tx).split("\n").map(function(x){ return x.trim() ? '<p class="zh' + (alt ? " alt" : "") + '">' + linkify(esc(x).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")) + "</p>" : ""; }).join("");
 }
 function paraHTML(meta, r, i){
   var en = r[1], zh = zhRow(r), body = "", isBm = isBookmarked(meta.c, i), inLib = inLibrary(meta.c, i);
@@ -1300,7 +1601,7 @@ function citeOf(c, i){ var b = BK[c], r = b.rows[i], m = bk(c); return (m.en || 
 function refreshPara(c, i){
   var el = $("r" + i); if(!el || !BK[c]) return;
   var tmp = document.createElement("div"); tmp.innerHTML = paraHTML(bk(c), BK[c].rows[i], i);
-  var n = tmp.firstChild; if(n){ n.classList.add("sel"); el.replaceWith(n); if(obs) obs.observe(n); }
+  var n = tmp.firstChild; if(n){ n.classList.add("sel"); el.replaceWith(n); if(obs) obs.observe(n); applyHL(n); }
 }
 function paraAct(act){
   if(!SEL) return;
@@ -1362,6 +1663,7 @@ var BNAMES = {};
 })();
 var BEN = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalm","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
 var ZHAB = [["創",1],["出",2],["利",3],["民",4],["申",5],["書",6],["士",7],["得",8],["撒上",9],["撒下",10],["王上",11],["王下",12],["代上",13],["代下",14],["拉",15],["尼",16],["斯",17],["伯",18],["詩",19],["箴",20],["傳",21],["歌",22],["賽",23],["耶",24],["哀",25],["結",26],["但",27],["何",28],["珥",29],["摩",30],["俄",31],["拿",32],["彌",33],["鴻",34],["哈",35],["番",36],["該",37],["亞",38],["瑪",39],["太",40],["可",41],["路",42],["約",43],["徒",44],["羅",45],["林前",46],["林後",47],["加",48],["弗",49],["腓",50],["西",51],["帖前",52],["帖後",53],["提前",54],["提後",55],["多",56],["門",57],["來",58],["雅",59],["彼前",60],["彼後",61],["約壹",62],["約貳",63],["約參",64],["猶",65],["啟",66]];
+ZHAB = ZHAB.concat([["创", 1], ["书", 6], ["诗", 19], ["传", 21], ["赛", 23], ["结", 26], ["弥", 33], ["鸿", 34], ["该", 37], ["亚", 38], ["玛", 39], ["约", 43], ["罗", 45], ["林后", 47], ["帖后", 53], ["提后", 55], ["门", 57], ["来", 58], ["彼后", 61], ["约壹", 62], ["约贰", 63], ["约参", 64], ["犹", 65], ["启", 66]]);
 var ZHRE = (function(){
   var names = ZHAB.map(function(x){ return x[0]; }).sort(function(a, b){ return b.length - a.length; });
   return new RegExp("(" + names.join("|") + ")\\s*(\\d{1,3})\\s*[:：]\\s*(\\d{1,3})", "g");
@@ -1460,6 +1762,7 @@ function doSearch(q, scope, scopeBook, pick){
     if(info) info.textContent = res.length ? t(s.foundN, res.length, countBooks(res)) : (HIT.titles.length ? "" : s.notFound);
     var bar2 = $("sbar"); if(bar2 && bar2.parentNode) bar2.parentNode.style.display = "none";
     renderHits(res, terms, cjk, pick);
+    if(SEARCHY[location.hash] != null){ window.scrollTo(0, SEARCHY[location.hash]); delete SEARCHY[location.hash]; }
   }
   step();
 }
@@ -1653,7 +1956,7 @@ function downloadAll(filter){
 /* ============ events ============ */
 document.addEventListener("click", function(e){
   var tg = e.target, el;
-  if((el = tg.closest("[data-go]"))){ e.preventDefault(); go(el.getAttribute("data-go")); return; }
+  if((el = tg.closest("[data-go]"))){ e.preventDefault(); if(VIEW && VIEW.name === "home") HOMEY = window.scrollY; else if(VIEW && (VIEW.name === "search" || VIEW.name === "toc")) SEARCHY[location.hash] = window.scrollY; go(el.getAttribute("data-go")); return; }
   if((el = tg.closest("[data-sgo]"))){ go(el.getAttribute("data-sgo")); return; }
   if((el = tg.closest("[data-fs]"))){
     var d = el.getAttribute("data-fs");
@@ -1663,8 +1966,11 @@ document.addEventListener("click", function(e){
     else if(d === "reset") P.fs = 1;
     saveSet(); rerender(); return;
   }
-  if((el = tg.closest("[data-bsort]"))){ P.bsort = el.getAttribute("data-bsort"); saveSet(); var bl = $("blist"); if(bl) bl.innerHTML = bookListHTML(""); return; }
-  if((el = tg.closest("[data-gtog]"))){ var gk = el.getAttribute("data-gtog"); HOMEEXP[gk] = !HOMEEXP[gk]; var bl2 = $("blist"); if(bl2) bl2.innerHTML = bookListHTML(""); return; }
+  if((el = tg.closest("[data-gtog]"))){ var gk = el.getAttribute("data-gtog"); HOMEEXP[gk] = !HOMEEXP[gk]; lsSet("egw.exp", HOMEEXP); var bl2 = $("blist"); if(bl2) bl2.innerHTML = bookListHTML(HOMEQ.trim()); return; }
+  if((el = tg.closest("[data-pinedit]"))){ HOMEEDIT = !HOMEEDIT; var bl3 = $("blist"); if(bl3) bl3.innerHTML = bookListHTML(HOMEQ.trim()); return; }
+  if((el = tg.closest("[data-pin]"))){ togglePin(el.getAttribute("data-pin")); var bl4 = $("blist"); if(bl4) bl4.innerHTML = bookListHTML(HOMEQ.trim()); var pb = $("pinbtn"); if(pb) refreshPinBtn(); return; }
+  if((el = tg.closest("[data-pinbook]"))){ togglePin(el.getAttribute("data-pinbook")); refreshPinBtn(); return; }
+  if((el = tg.closest("[data-mtog]"))){ var mk = el.getAttribute("data-mtog"); TOCEXP[mk] = !TOCEXP[mk]; var tl = $("tocl"); if(tl && TOCCTX) tl.innerHTML = tocListHTML(TOCCTX.meta, TOCCTX.b); return; }
   if((el = tg.closest("[data-lang]"))){ P.lang = el.getAttribute("data-lang"); if(D){ D.shown = {}; D.revealed = false; } saveSet(); rerender(); return; }
   if((el = tg.closest("[data-sv]"))){
     var k = el.parentNode.getAttribute("data-skey"); P[k] = el.getAttribute("data-sv") === "true"; saveSet(); rerender(); return;
@@ -1712,6 +2018,8 @@ document.addEventListener("click", function(e){
     var si = el.getAttribute("data-s"); D.shown[si] = true; viewDrill(D.id); return;
   }
   /* reader paragraph */
+  if(HLBAR && !tg.closest(".hl-toolbar")) hlDrop();
+  if(VIEW && VIEW.name === "reader" && (el = tg.closest(".hl[data-hl]")) && !(window.getSelection && window.getSelection().toString())){ hlEdit(el); return; }
   var p = tg.closest(".para");
   if(p && VIEW && VIEW.name === "reader" && !tg.closest("a")){
     var sel = window.getSelection && window.getSelection().toString();
