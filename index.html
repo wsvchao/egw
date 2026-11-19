@@ -1039,7 +1039,29 @@ function setApp(html, tab, foot){
   else if(BACKGO && SCRM[hk(location.hash)] != null) window.scrollTo(0, SCRM[hk(location.hash)]);
   else window.scrollTo(0, 0);
 }
-function rerender(){ KEEPY = window.scrollY; route(); }
+/* keep the reader on the same paragraph when language / layout changes */
+var ANCH = null;
+function readLine(){ var b = document.querySelector(".bar"); return (b ? b.getBoundingClientRect().bottom : 70) + 8; }
+function readerAnchor(){
+  if(!VIEW || VIEW.name !== "reader") return null;
+  var line = readLine(), ps = document.querySelectorAll(".para"), k, r;
+  for(k = 0; k < ps.length; k++){
+    r = ps[k].getBoundingClientRect();
+    if(r.bottom > line){
+      var i = +ps[k].getAttribute("data-i");
+      if(r.top >= line - 8) return { i: i, top: r.top, f: 0 };
+      return { i: i, top: line, f: (line - r.top) / (r.height || 1) };
+    }
+  }
+  return null;
+}
+function restoreAnchor(){
+  var a = ANCH; ANCH = null; if(!a) return;
+  var el = $("r" + a.i); if(!el) return;
+  var r = el.getBoundingClientRect();
+  window.scrollBy(0, (r.top + a.f * r.height) - a.top);
+}
+function rerender(){ KEEPY = window.scrollY; ANCH = readerAnchor(); if(ANCH && VIEW) VIEW.tgt = ANCH.i; route(); }
 
 /* ============ router ============ */
 function go(h){ if(location.hash === h){ NAVCLICK = false; route(); } else location.hash = h; }
@@ -1320,6 +1342,7 @@ function renderReader(meta, b, tgt){
     '<main><div class="wrap" id="rd">' + fsPanel() + pickBanner() + rdHTML(meta, b, ci, s0, e0, sp, spn) + "</div></main>";
   setApp(html, "egw");
   applyHL(document);
+  if(keep) restoreAnchor();
   if(!keep){
     var el = $("r" + tgt);
     if(el){
