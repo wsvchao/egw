@@ -696,7 +696,7 @@ mark{background:var(--brass-soft);color:var(--brass-ink);border-radius:3px;paddi
 <script>
 "use strict";
 /* ============ constants ============ */
-var APP_VER = "egw-v24", APP_DATE = "2026-10-25", DV = 11;
+var APP_VER = "egw-v26", APP_DATE = "2026-11-22", DV = 11;
 var STUDY_URL = "https://wsvchao.github.io/study/";
 var STR = {"zh": {"fsTitle": "字級", "fsNames": ["小", "標準", "大", "特大", "超大", "極大", "最大"], "fsReset": "回到標準字級", "showMode": "顯示", "bi": "中英對照", "mono": "只看中文", "orderLbl": "順序", "zhTop": "中文在上", "enTop": "英文在上", "back": "返回", "tabEgw": "懷著", "tabLib": "背誦庫", "tabSet": "設定", "pickMsg": "請進入書本，點選段落後按「加入背誦庫」。", "pickDone": "完成，回背誦庫", "resume": "繼續閱讀", "searchPh": "搜尋書名，或輸入 DA 3.2 直接跳到出處", "homeHint": "輸入關鍵字按搜尋鍵可全文檢索；中文只搜尋有中文版的書。", "bookmarks": "書籤", "noBook": "找不到符合的書。按搜尋鍵可全文檢索。", "coreSec": "有中文版（%1 本）", "cats": {"pinned": "常讀書籍", "conflict": "善惡之爭系列", "testimonies": "教會證言與信息", "devotion": "靈修與生活", "compil": "選粹與彙編", "gifts": "屬靈恩賜與歷史", "health": "健康與飲食", "family": "家庭與教育", "ministry": "佈道與事工", "bio": "傳記與史料", "bible": "聖經註釋", "mr": "文稿發佈", "st": "時兆期刊", "per": "其他期刊與單張", "pam": "小冊子", "other": "其他"}, "noZhSec": "尚無中文版", "sortTitle": "依書名", "sortYear": "依年份", "bilingualTag": "中英", "zhOnlyTag": "中文", "loading": "載入中…", "loadFail": "載入失敗，請確認網路後再試。", "catFail": "找不到書目資料，請確認 data 資料夾已上傳。", "searchInBook": "在本書內搜尋，或輸入頁碼（如 120 或 120.3）", "lastRead": "上次讀到", "prev": "上一章", "next": "下一章", "toc": "目錄", "longChap": "本章較長，分為 %1 段，目前第 %2 段", "inLib": "已在背誦庫（再按移除）", "addLib": "加入背誦庫", "bmDel": "移除書籤", "bmAdd": "加書籤", "copyCite": "複製（含出處）", "copyEn": "複製英文", "copyZh": "複製中文", "copyLink": "複製連結", "bibleRefs": "經文（在研讀版開啟）", "copied": "已複製", "bmRemoved": "已移除書籤", "bmAdded": "已加書籤", "bmEmpty": "還沒有書籤", "bmEmpty2": "閱讀時點段落，選「加書籤」。", "bmCopyAll": "複製全部書籤", "scopeBook": "本書", "scopeCore": "有中文版", "scopeOpen": "已開啟", "scopeAll": "全部", "libAdd": "加入背誦", "pickFromBooks": "從書本中挑選段落", "searchPh2": "輸入關鍵字（中文或英文）", "search": "搜尋", "searchTip": "全部書籍約 %1。中文只搜尋有中文版的書，英文可搜全部。", "noZhScope": "此範圍內沒有中文版的書。", "noScope": "此範圍內沒有可搜尋的書。", "searching": "搜尋中…", "searchingN": "已搜 %1／%2 本，找到 %3 段", "foundN": "找到 %1 段（%2 本書）", "notFound": "沒有找到。", "moreN": "再顯示 %1 筆（共 %2）", "titleHits": "書名符合", "pinEdit": "編輯常讀書籍", "pinDone": "完成編輯", "pinAdd": "加入常讀書籍", "pinDel": "移出常讀書籍", "pinAdded": "已加入常讀書籍", "pinRemoved": "已移出常讀書籍", "pinEmpty": "尚未加入。按上方「編輯常讀書籍」，再點書旁的星號。", "hlDel": "移除標記", "nHits": "%1 段", "expandN": "展開其餘 %1 段", "collapse": "收合", "moreBooksN": "再顯示 %1 本書（尚有 %2 本）", "added": "已加", "libRemoved": "已移出背誦庫", "libAdded": "已加入背誦庫", "libEmpty": "背誦庫還是空的", "libEmpty2": "按右下角「＋」搜尋關鍵字，或在閱讀時點段落加入。", "libCount": "共 %1 段 ・ 記得 %2 ・ 忘記 %3", "libDelN": "刪除選取的 %1 段", "libDelDone": "完成", "libDelToggle": "選取並刪除", "lv": {"fill": "填充", "hint": "提示", "blank": "全空白"}, "vlvDesc": {"fill": "點空格可以單獨顯示一個詞", "hint": "點任一句，可單獨顯示那一句", "blank": "點任一句，可單獨顯示那一句"}, "scoreline": "記得 %1 ・ 忘記 %2", "showAll": "顯示全文", "reshuffle": "再練一次", "openInBook": "回到書中", "nextItem": "下一段", "forgot": "忘記", "got": "記得", "allDone": "這一輪做完了", "setLook": "外觀", "setTheme": "主題", "themeDark": "深色", "themeLight": "淺色", "themeAuto": "跟隨系統", "setOffline": "離線使用", "dlCore": "下載有中文版的書（%1 本，%2）", "dl": "下載", "dlAll": "下載全部 %1 本（%2）", "dlClear": "清除已下載的書", "clear": "清除", "clearAsk": "確定清除離線資料？", "cleared": "已清除", "dlDone": "已下載 %1 本", "dlFail": "，%1 本失敗", "dlIng": "下載中 %1／%2　%3", "setLinks": "連結", "studyLink": "銘刻心版　研讀版", "setVersion": "版本", "verLab": "版本", "verDate": "更新日期", "sourceNote": "App 僅供個人學習使用，不作商業用途。", "aiTag": "補譯", "aiNote": "標示「補譯」的段落，原書中文版缺少該段，為 AI 補譯，非官方中文譯本，僅供參考。"}, "hans": {"fsTitle": "字级", "fsNames": ["小", "标准", "大", "特大", "超大", "极大", "最大"], "fsReset": "回到标准字级", "showMode": "显示", "bi": "中英对照", "mono": "只看中文", "orderLbl": "顺序", "zhTop": "中文在上", "enTop": "英文在上", "back": "返回", "tabEgw": "懷著", "tabLib": "背诵库", "tabSet": "设定", "pickMsg": "请进入书本，点选段落后按「加入背诵库」。", "pickDone": "完成，回背诵库", "resume": "继续阅读", "searchPh": "搜寻书名，或输入 DA 3.2 直接跳到出处", "homeHint": "输入关键字按搜寻键可全文检索；中文只搜寻有中文版的书。", "bookmarks": "书签", "noBook": "找不到符合的书。按搜寻键可全文检索。", "coreSec": "有中文版（%1 本）", "cats": {"pinned": "常读书籍", "conflict": "善恶之争系列", "testimonies": "教会证言与信息", "devotion": "灵修与生活", "compil": "选粹与汇编", "gifts": "属灵恩赐与历史", "health": "健康与饮食", "family": "家庭与教育", "ministry": "布道与事工", "bio": "传记与史料", "bible": "圣经注释", "mr": "文稿发布", "st": "时兆期刊", "per": "其他期刊与单张", "pam": "小册子", "other": "其他"}, "noZhSec": "尚无中文版", "sortTitle": "依书名", "sortYear": "依年份", "bilingualTag": "中英", "zhOnlyTag": "中文", "loading": "载入中…", "loadFail": "载入失败，请确认网路后再试。", "catFail": "找不到书目资料，请确认 data 资料夹已上传。", "searchInBook": "在本书内搜寻，或输入页码（如 120 或 120.3）", "lastRead": "上次读到", "prev": "上一章", "next": "下一章", "toc": "目录", "longChap": "本章较长，分为 %1 段，目前第 %2 段", "inLib": "已在背诵库（再按移除）", "addLib": "加入背诵库", "bmDel": "移除书签", "bmAdd": "加书签", "copyCite": "复制（含出处）", "copyEn": "复制英文", "copyZh": "复制中文", "copyLink": "复制连结", "bibleRefs": "经文（在研读版开启）", "copied": "已复制", "bmRemoved": "已移除书签", "bmAdded": "已加书签", "bmEmpty": "还没有书签", "bmEmpty2": "阅读时点段落，选「加书签」。", "bmCopyAll": "复制全部书签", "scopeBook": "本书", "scopeCore": "有中文版", "scopeOpen": "已开启", "scopeAll": "全部", "libAdd": "加入背诵", "pickFromBooks": "从书本中挑选段落", "searchPh2": "输入关键字（中文或英文）", "search": "搜寻", "searchTip": "全部书籍约 %1。中文只搜寻有中文版的书，英文可搜全部。", "noZhScope": "此范围内没有中文版的书。", "noScope": "此范围内没有可搜寻的书。", "searching": "搜寻中…", "searchingN": "已搜 %1／%2 本，找到 %3 段", "foundN": "找到 %1 段（%2 本书）", "notFound": "没有找到。", "moreN": "再显示 %1 笔（共 %2）", "titleHits": "书名符合", "pinEdit": "编辑常读书籍", "pinDone": "完成编辑", "pinAdd": "加入常读书籍", "pinDel": "移出常读书籍", "pinAdded": "已加入常读书籍", "pinRemoved": "已移出常读书籍", "pinEmpty": "尚未加入。按上方「编辑常读书籍」，再点书旁的星号。", "hlDel": "移除标记", "nHits": "%1 段", "expandN": "展开其余 %1 段", "collapse": "收合", "moreBooksN": "再显示 %1 本书（尚有 %2 本）", "added": "已加", "libRemoved": "已移出背诵库", "libAdded": "已加入背诵库", "libEmpty": "背诵库还是空的", "libEmpty2": "按右下角「＋」搜寻关键字，或在阅读时点段落加入。", "libCount": "共 %1 段 ・ 记得 %2 ・ 忘记 %3", "libDelN": "删除选取的 %1 段", "libDelDone": "完成", "libDelToggle": "选取并删除", "lv": {"fill": "填充", "hint": "提示", "blank": "全空白"}, "vlvDesc": {"fill": "点空格可以单独显示一个词", "hint": "点任一句，可单独显示那一句", "blank": "点任一句，可单独显示那一句"}, "scoreline": "记得 %1 ・ 忘记 %2", "showAll": "显示全文", "reshuffle": "再练一次", "openInBook": "回到书中", "nextItem": "下一段", "forgot": "忘记", "got": "记得", "allDone": "这一轮做完了", "setLook": "外观", "setTheme": "主题", "themeDark": "深色", "themeLight": "浅色", "themeAuto": "跟随系统", "setOffline": "离线使用", "dlCore": "下载有中文版的书（%1 本，%2）", "dl": "下载", "dlAll": "下载全部 %1 本（%2）", "dlClear": "清除已下载的书", "clear": "清除", "clearAsk": "确定清除离线资料？", "cleared": "已清除", "dlDone": "已下载 %1 本", "dlFail": "，%1 本失败", "dlIng": "下载中 %1／%2　%3", "setLinks": "连结", "studyLink": "铭刻心版　研读版", "setVersion": "版本", "verLab": "版本", "verDate": "更新日期", "sourceNote": "App 仅供个人学习使用，不作商业用途。", "aiTag": "补译", "aiNote": "标示「补译」的段落，原书中文版缺少该段，为 AI 补译，非官方中文译本，仅供参考。"}, "en": {"fsTitle": "Text size", "fsNames": ["Small", "Standard", "Large", "X-Large", "XX-Large", "XXX-Large", "Largest"], "fsReset": "Reset to standard", "showMode": "Display", "bi": "Bilingual", "mono": "Chinese only", "orderLbl": "Order", "zhTop": "Chinese first", "enTop": "English first", "back": "Back", "tabEgw": "EGW", "tabLib": "Memorize", "tabSet": "Settings", "pickMsg": "Open a book, tap a paragraph, then choose “Add to memorize list”.", "pickDone": "Done — back to list", "resume": "CONTINUE READING", "searchPh": "Search titles, or type DA 3.2 to jump to a reference", "homeHint": "Type a keyword and press search for full-text search. Chinese search covers books with a Chinese edition.", "bookmarks": "Bookmarks", "noBook": "No matching book. Press search for full-text.", "coreSec": "With Chinese edition (%1 books)", "cats": {"pinned": "Most read", "conflict": "Conflict of the Ages", "testimonies": "Testimonies & Messages", "devotion": "Devotional & Life", "compil": "Compilations", "gifts": "Spiritual Gifts & History", "health": "Health & Diet", "family": "Home & Education", "ministry": "Evangelism & Ministry", "bio": "Biography & History", "bible": "Bible Commentary", "mr": "Manuscript Releases", "st": "Signs of the Times", "per": "Other Periodicals & Broadsides", "pam": "Pamphlets", "other": "Other"}, "noZhSec": "No Chinese edition yet", "sortTitle": "By title", "sortYear": "By year", "bilingualTag": "EN/中", "zhOnlyTag": "中", "loading": "Loading…", "loadFail": "Failed to load. Check your connection.", "catFail": "Catalog not found. Make sure the data folder was uploaded.", "searchInBook": "Search this book, or enter a page (e.g. 120 or 120.3)", "lastRead": "LAST READ", "prev": "Previous", "next": "Next", "toc": "Contents", "longChap": "Long chapter: %1 parts, now part %2", "inLib": "In memorize list (tap to remove)", "addLib": "Add to memorize list", "bmDel": "Remove bookmark", "bmAdd": "Bookmark", "copyCite": "Copy with citation", "copyEn": "Copy English", "copyZh": "Copy Chinese", "copyLink": "Copy link", "bibleRefs": "Scripture (open in Study edition)", "copied": "Copied", "bmRemoved": "Bookmark removed", "bmAdded": "Bookmarked", "bmEmpty": "No bookmarks yet", "bmEmpty2": "Tap a paragraph while reading and choose Bookmark.", "bmCopyAll": "Copy all bookmarks", "scopeBook": "This book", "scopeCore": "With Chinese", "scopeOpen": "Opened", "scopeAll": "All", "libAdd": "Add passages", "pickFromBooks": "Pick paragraphs from books", "searchPh2": "Enter a keyword (Chinese or English)", "search": "Search", "searchTip": "All books ≈ %1. Chinese search covers books with a Chinese edition; English searches everything.", "noZhScope": "No Chinese edition in this scope.", "noScope": "Nothing to search in this scope.", "searching": "Searching…", "searchingN": "%1/%2 books, %3 hits", "foundN": "%1 hits in %2 books", "notFound": "No results.", "moreN": "Show %1 more (of %2)", "titleHits": "Matching titles", "pinEdit": "Edit favorites", "pinDone": "Done", "pinAdd": "Add to favorites", "pinDel": "Remove from favorites", "pinAdded": "Added to favorites", "pinRemoved": "Removed from favorites", "pinEmpty": "Nothing yet. Tap “Edit favorites”, then the star next to a book.", "hlDel": "Remove", "nHits": "%1 hits", "expandN": "Show %1 more", "collapse": "Collapse", "moreBooksN": "Show %1 more books (%2 left)", "added": "Added", "libRemoved": "Removed from list", "libAdded": "Added to memorize list", "libEmpty": "Your memorize list is empty", "libEmpty2": "Tap “＋” to search a keyword, or tap a paragraph while reading.", "libCount": "%1 passages · %2 got it · %3 missed", "libDelN": "Delete %1 selected", "libDelDone": "Done", "libDelToggle": "Select & delete", "lv": {"fill": "Fill", "hint": "Hint", "blank": "Blank"}, "vlvDesc": {"fill": "Tap a blank to reveal one word", "hint": "Tap a phrase to reveal it", "blank": "Tap a phrase to reveal it"}, "scoreline": "Got %1 · Missed %2", "showAll": "Show full text", "reshuffle": "Try again", "openInBook": "Open in book", "nextItem": "Next", "forgot": "Forgot", "got": "Got it", "allDone": "Round complete", "setLook": "Appearance", "setTheme": "Theme", "themeDark": "Dark", "themeLight": "Light", "themeAuto": "System", "setOffline": "Offline use", "dlCore": "Download books with Chinese (%1 books, %2)", "dl": "Download", "dlAll": "Download all %1 books (%2)", "dlClear": "Clear downloaded books", "clear": "Clear", "clearAsk": "Clear offline data?", "cleared": "Cleared", "dlDone": "%1 books downloaded", "dlFail": ", %1 failed", "dlIng": "Downloading %1/%2  %3", "setLinks": "Links", "studyLink": "Textionary Study Edition", "setVersion": "Version", "verLab": "Version", "verDate": "Updated", "sourceNote": "This app is for personal study only, not for commercial use.", "aiTag": "AI translation", "aiNote": "Paragraphs marked \"AI translation\" are missing from the official Chinese edition and were translated by AI. They are not an official translation and are for reference only."}};
 var FS = [0.90, 1.00, 1.13, 1.28, 1.45, 1.60, 1.75];
@@ -1063,6 +1063,241 @@ function restoreAnchor(){
 }
 function rerender(){ KEEPY = window.scrollY; ANCH = readerAnchor(); if(ANCH && VIEW) VIEW.tgt = ANCH.i; route(); }
 
+/* ============ 分享給朋友（EGW 與研讀版共用的元件） ============
+   連結格式：<App 網址>#/sh/<出處>?l=tw,cn,en
+   iPhone 點連結一定開 Safari，跟主畫面 App 的資料分開，
+   所以分享頁提供「複製並在 App 開啟」，App 的背誦庫再「貼上分享連結」。 */
+var SHX_T = {
+  zh: { share: "分享給朋友", pickLang: "分享哪些語言（可多選）", go: "分享", cancel: "取消",
+    copied: "已複製，可以貼到 LINE 等訊息", needLang: "請至少選一種語言",
+    recv: "朋友分享給你", addMine: "加入我的背誦庫", inMine: "已在背誦庫", openLib: "到背誦庫練習",
+    openApp: "複製並在 App 開啟", iosSteps: "已複製連結。請打開主畫面上的 App →「背誦庫」→ 按「貼上分享連結」。",
+    addHere: "直接加到這個瀏覽器", install: "還沒安裝 App？在 Safari 按「分享」→「加入主畫面」。",
+    paste: "貼上分享連結", pasteBox: "把分享連結貼在這裡", add: "加入",
+    bad: "這不是有效的分享連結", added: "已加入背誦庫：%1", already: "已在背誦庫：%1", fail: "載入失敗，請確認網路後再試。" },
+  hans: { share: "分享给朋友", pickLang: "分享哪些语言（可多选）", go: "分享", cancel: "取消",
+    copied: "已复制，可以贴到 LINE 等讯息", needLang: "请至少选一种语言",
+    recv: "朋友分享给你", addMine: "加入我的背诵库", inMine: "已在背诵库", openLib: "到背诵库练习",
+    openApp: "复制并在 App 开启", iosSteps: "已复制连结。请打开主画面上的 App →「背诵库」→ 按「贴上分享连结」。",
+    addHere: "直接加到这个浏览器", install: "还没安装 App？在 Safari 按「分享」→「加入主画面」。",
+    paste: "贴上分享连结", pasteBox: "把分享连结贴在这里", add: "加入",
+    bad: "这不是有效的分享连结", added: "已加入背诵库：%1", already: "已在背诵库：%1", fail: "载入失败，请确认网路后再试。" },
+  en: { share: "Share with a friend", pickLang: "Languages to share (pick one or more)", go: "Share", cancel: "Cancel",
+    copied: "Copied — paste it into LINE or any message", needLang: "Pick at least one language",
+    recv: "Shared with you", addMine: "Add to my memorize list", inMine: "Already in your list", openLib: "Go to memorize list",
+    openApp: "Copy & open in the app", iosSteps: "Link copied. Open the app from your Home Screen → Memorize → tap “Paste shared link”.",
+    addHere: "Add to this browser instead", install: "Don’t have the app? In Safari tap Share → Add to Home Screen.",
+    paste: "Paste shared link", pasteBox: "Paste the shared link here", add: "Add",
+    bad: "That isn’t a valid shared link", added: "Added to your list: %1", already: "Already in your list: %1", fail: "Failed to load. Check your connection." }
+};
+var SHX_LANGS = [["tw", "繁中"], ["cn", "简中"], ["en", "English"]];
+function shxEsc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function shxFmt(s, a){ return String(s).replace("%1", a); }
+function shxCss(){
+  if(document.getElementById("shxcss")) return;
+  var el = document.createElement("style"); el.id = "shxcss";
+  el.textContent =
+    ".shx{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}" +
+    ".shx-card{width:100%;max-width:640px;background:var(--surface,#1b2230);color:var(--ink,#e8ebf1);border-top:1px solid var(--rule,#333);" +
+      "border-radius:16px 16px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom))}" +
+    ".shx-card h4{margin:0 0 4px;font-size:calc(15px * var(--fs,1));color:var(--brass-ink,#d9b56a)}" +
+    ".shx-card .shx-k{font-size:calc(13px * var(--fs,1));color:var(--muted,#9aa3b2);margin:10px 0 8px}" +
+    ".shx-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}" +
+    ".shx-chip{flex:1;min-width:84px;padding:10px 8px;border-radius:10px;border:1px solid var(--rule,#444);background:transparent;color:inherit;" +
+      "font-size:calc(15px * var(--fs,1));font-family:inherit}" +
+    ".shx-chip[aria-pressed=true]{background:var(--brass-soft,#3a3020);border-color:var(--brass-line,#a8864a);color:var(--brass-ink,#e3c27a);font-weight:600}" +
+    ".shx-chip[aria-pressed=true]::before{content:'✓ '}" +
+    ".shx-btns{display:flex;gap:10px}.shx-btns .btn{flex:1}" +
+    ".shxrow{display:flex;gap:8px;margin:0 0 14px}.shxrow .btn{flex:1}" +
+    ".shxin{display:flex;gap:8px;margin:0 0 14px}.shxin input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--rule,#444);" +
+      "background:var(--ground,#111);color:inherit;font-size:16px}" +
+    ".shxrecv{font-size:calc(12px * var(--fs,1));letter-spacing:.06em;color:var(--brass-ink,#d9b56a);margin:4px 0 6px}" +
+    ".shxnote{font-size:calc(13.5px * var(--fs,1));color:var(--muted,#9aa3b2);margin:12px 0;line-height:1.6}" +
+    ".shxbox{background:var(--brass-soft,#3a3020);border:1px solid var(--brass-line,#a8864a);color:var(--brass-ink,#e3c27a);border-radius:10px;padding:12px 14px;margin:12px 0;line-height:1.6}";
+  document.head.appendChild(el);
+}
+function shxCopy(txt){
+  function fb(){
+    try{ var ta = document.createElement("textarea"); ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = 0;
+      document.body.appendChild(ta); ta.select(); var ok = document.execCommand("copy"); document.body.removeChild(ta); return ok; }catch(e){ return false; }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText)
+    return navigator.clipboard.writeText(txt).then(function(){ return true; }, function(){ return fb(); });
+  return Promise.resolve(fb());
+}
+function shxEnv(){
+  var ua = navigator.userAgent || "";
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var sa = !!(navigator.standalone || (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches));
+  return { ios: ios, standalone: sa };
+}
+function shxClose(){ var o = document.getElementById("shx"); if(o) o.remove(); }
+/* o = { T, title, texts:{tw,cn,en}, def:[...], url:function(langs), toast:function(msg) } */
+function shxOpen(o){
+  shxCss(); shxClose();
+  var T = o.T, sel = {};
+  (o.def || ["tw"]).forEach(function(l){ if(o.texts[l]) sel[l] = true; });
+  var avail = SHX_LANGS.filter(function(x){ return !!o.texts[x[0]]; });
+  if(!avail.some(function(x){ return sel[x[0]]; }) && avail.length) sel[avail[0][0]] = true;
+  var ov = document.createElement("div"); ov.id = "shx"; ov.className = "shx";
+  ov.innerHTML = '<div class="shx-card" role="dialog"><h4>' + shxEsc(T.share) + "</h4>" +
+    '<div class="shx-k" style="margin-top:2px;color:inherit">' + shxEsc(o.title) + "</div>" +
+    '<div class="shx-k">' + shxEsc(T.pickLang) + "</div>" +
+    '<div class="shx-chips">' + avail.map(function(x){
+      return '<button class="shx-chip" data-shxl="' + x[0] + '" aria-pressed="' + !!sel[x[0]] + '">' + x[1] + "</button>"; }).join("") + "</div>" +
+    '<div class="shx-btns"><button class="btn btn-wide" data-shxc="1">' + shxEsc(T.cancel) + "</button>" +
+    '<button class="btn btn-brass btn-wide" data-shxgo="1">' + shxEsc(T.go) + "</button></div></div>";
+  document.body.appendChild(ov);
+  ov.addEventListener("click", function(e){
+    e.stopPropagation();
+    var b = e.target.closest("[data-shxl],[data-shxc],[data-shxgo]");
+    if(!b){ if(e.target === ov) shxClose(); return; }
+    if(b.hasAttribute("data-shxc")) return shxClose();
+    if(b.hasAttribute("data-shxl")){
+      var l = b.getAttribute("data-shxl"); sel[l] = !sel[l]; b.setAttribute("aria-pressed", !!sel[l]); return;
+    }
+    var langs = SHX_LANGS.map(function(x){ return x[0]; }).filter(function(l){ return sel[l] && o.texts[l]; });
+    if(!langs.length){ o.toast(T.needLang); return; }
+    var url = o.url(langs);
+    var text = o.title + "\n\n" + langs.map(function(l){ return o.texts[l]; }).join("\n\n");
+    shxClose();
+    if(navigator.share){
+      /* 連結放在文字最後（不用 url 欄位），LINE、WhatsApp 等才不會把連結吃掉 */
+      navigator.share({ title: o.title, text: text + "\n\n" + url }).catch(function(){});
+    } else {
+      shxCopy(text + "\n\n" + url).then(function(){ o.toast(T.copied); });
+    }
+  });
+}
+/* 從貼上的文字裡找出分享連結 → { app:"egw"|"study", spec:"MH/485.2", l:[...] } */
+function shxParse(txt){
+  var m = /\/(egw|study)\/?(?:index\.html)?#\/sh\/([^\s?#]+)(?:\?([^\s#]*))?/.exec(String(txt || ""));
+  if(!m) return null;
+  var l = [], q = m[3] || "", lm = /(?:^|&)l=([^&]*)/.exec(q);
+  if(lm) l = decodeURIComponent(lm[1]).split(",").filter(function(x){ return /^(tw|cn|en)$/.test(x); });
+  return { app: m[1], spec: m[2], l: l };
+}
+/* 跳出「貼上分享連結」：先試著讀剪貼簿（iPhone 會跳一次「貼上」），失敗就給輸入框 */
+function shxReadClip(onText, onFail){
+  if(navigator.clipboard && navigator.clipboard.readText){
+    navigator.clipboard.readText().then(function(x){ if(shxParse(x)) onText(x); else onFail(); }, onFail);
+  } else onFail();
+}
+
+/* ---- EGW app：分享段落、分享頁、貼上分享連結 ---- */
+function shxT(){ return SHX_T[P.lang] || SHX_T.zh; }
+function shxMyLang(){ return P.lang === "en" ? "en" : (P.lang === "hans" ? "cn" : "tw"); }
+function shxBase(){ return location.href.split("#")[0].replace(/index\.html$/, ""); }
+function shxRefOf(c, i){ var r = BK[c].rows[i]; return r[0] || ("i" + i); }
+function shxUrl(c, i, langs){ return shxBase() + "#/sh/" + encodeURIComponent(c) + "/" + encodeURIComponent(shxRefOf(c, i)) + "?l=" + langs.join(","); }
+function shxTexts(r){
+  return { tw: String(r[2] || "").replace(/\*\*/g, "").trim(), cn: String(r[3] || "").replace(/\*\*/g, "").trim(), en: stripMd(r[1]).trim() };
+}
+function shxTitle(c, i, lang){
+  var m = bk(c), r = BK[c].rows[i], ref = c + " " + (r[0] || "");
+  var nm = lang === "en" ? m.en : (lang === "cn" ? (m.cn || m.zh || m.en) : (m.zh || m.en));
+  return (lang === "en" ? nm : "《" + nm + "》") + " " + ref;
+}
+function shareParagraph(c, i){
+  var r = BK[c].rows[i], my = shxMyLang();
+  shxOpen({ T: shxT(), title: shxTitle(c, i, my), texts: shxTexts(r), def: [my], toast: toast,
+    url: function(langs){ return shxUrl(c, i, langs); } });
+}
+/* 從背誦庫分享：用項目本身存的文字，不必先載入整本書 */
+function shareItem(it){
+  var m = bk(it.c) || { en: it.c }, my = shxMyLang(), ref = it.c + " " + it.ref;
+  var nm = my === "en" ? m.en : (my === "cn" ? (m.cn || m.zh || m.en) : (m.zh || m.en));
+  var texts = { tw: String(it.tw || "").replace(/\*\*/g, "").trim(), cn: String(it.cn || "").replace(/\*\*/g, "").trim(), en: String(it.en || "").trim() };
+  shxOpen({ T: shxT(), title: (my === "en" ? nm : "《" + nm + "》") + " " + ref, texts: texts, def: [my], toast: toast,
+    url: function(langs){ return shxBase() + "#/sh/" + encodeURIComponent(it.c) + "/" + encodeURIComponent(it.ref || ("i" + it.i)) + "?l=" + langs.join(","); } });
+}
+function libAddOnly(c, i){
+  if(inLibrary(c, i)) return false;
+  var r = BK[c].rows[i];
+  LIB.unshift({ id: libId(c, i), c: c, i: i, ref: r[0] || "", en: stripMd(r[1]), tw: r[2] || "", cn: r[3] || "", ts: Date.now(), ok: 0, ng: 0, lt: 0 });
+  saveLib(); return true;
+}
+/* 分享頁：#/sh/MH/485.2?l=tw,en */
+function viewShare(c, spec, q){
+  var meta = bk(c), T = shxT(); shxCss();
+  if(!meta) return viewHome();
+  VIEW = { name: "share", c: meta.c, spec: spec };
+  var lm = /(?:^|&)l=([^&]*)/.exec(q || ""), langs = lm ? decodeURIComponent(lm[1]).split(",") : [];
+  langs = langs.filter(function(x){ return /^(tw|cn|en)$/.test(x); });
+  if(!langs.length) langs = [shxMyLang()];
+  setApp(bar(backBtn("#/") + '<span class="bar-title">' + esc(bt(meta)) + "</span>") + '<main><div class="wrap"><div class="empty">' + esc(L().loading) + "</div></div></main>", "egw");
+  loadBook(meta.c).then(function(b){
+    if(!VIEW || VIEW.name !== "share" || VIEW.spec !== spec) return;
+    var i = resolveTarget(b, spec), r = b.rows[i];
+    if(!r || r[0] === "#"){ return go("#/b/" + meta.c + "/" + spec); }
+    VIEW.i = i;
+    var tx = shxTexts(r), body = "";
+    langs.forEach(function(l){
+      if(!tx[l]) return;
+      body += l === "en" ? blocksEn(r[1], body !== "") : blocksZh(l === "cn" ? r[3] : r[2], body !== "");
+    });
+    if(!body) body = blocksEn(r[1], false);
+    var env = shxEnv(), inL = inLibrary(meta.c, i), btns;
+    if(inL) btns = '<button class="btn btn-sage btn-wide" data-go="#/lib">' + esc(T.inMine + " · " + T.openLib) + "</button>";
+    else if(env.ios && !env.standalone)
+      btns = '<button class="btn btn-brass btn-wide" data-shxcopy="1">' + esc(T.openApp) + "</button>" +
+        '<div id="shxsteps"></div>' +
+        '<button class="btn btn-wide" data-shxadd="1">' + esc(T.addHere) + "</button>";
+    else btns = '<button class="btn btn-brass btn-wide" data-shxadd="1">' + esc(T.addMine) + "</button>";
+    var html = bar(backBtn("#/") + '<span class="bar-title">' + esc(bt(meta)) + "<small>" + esc(meta.c + " " + (r[0] || "")) + "</small></span>") +
+      '<main><div class="wrap"><div class="shxrecv">' + esc(T.recv) + "</div>" +
+      '<div class="rhead" style="margin-top:0"><h1' + (P.lang === "en" ? "" : ' class="zh"') + ">" + esc(shxTitle(meta.c, i, shxMyLang())) + "</h1></div>" +
+      '<div class="para">' + body + "</div>" +
+      '<div class="actions" style="flex-direction:column;gap:10px;margin-top:18px">' + btns +
+      '<button class="btn btn-wide" data-go="#/b/' + esc(meta.c) + "/" + esc(r[0] || "i" + i) + '">' + esc(L().openInBook) + "</button></div>" +
+      (env.standalone ? "" : '<div class="shxnote">' + esc(T.install) + "</div>") + "</div></main>";
+    setApp(html, "egw");
+  }).catch(function(){
+    setApp(bar(backBtn("#/") + '<span class="bar-title">' + esc(bt(meta)) + "</span>") + '<main><div class="wrap"><div class="empty">' + esc(T.fail) + "</div></div></main>", "egw");
+  });
+}
+/* 背誦庫上方的「貼上分享連結」 */
+var SHXIN = false;
+function shxLibRow(){
+  var T = shxT(); shxCss();
+  return '<div class="shxrow"><button class="btn" data-shxpaste="1">📋 ' + esc(T.paste) + "</button></div>" +
+    (SHXIN ? '<div class="shxin"><input id="shxin" type="url" inputmode="url" autocomplete="off" placeholder="' + esc(T.pasteBox) + '">' +
+      '<button class="btn btn-brass" data-shxinok="1">' + esc(T.add) + "</button></div>" : "");
+}
+function shxAddFrom(txt){
+  var T = shxT(), p = shxParse(txt);
+  if(!p){ toast(T.bad); return; }
+  if(p.app !== "egw"){ toast(P.lang === "en" ? "This is a Bible verse link — paste it in the Study edition." : (P.lang === "hans" ? "这是圣经经文连结，请到研读版贴上。" : "這是聖經經文連結，請到研讀版貼上。")); return; }
+  var parts = p.spec.split("/").map(function(x){ try{ return decodeURIComponent(x); }catch(e){ return x; } });
+  var meta = bk(parts[0]); if(!meta || !parts[1]){ toast(T.bad); return; }
+  loadBook(meta.c).then(function(b){
+    var i = resolveTarget(b, parts[1]), r = b.rows[i];
+    if(!r || r[0] === "#"){ toast(T.bad); return; }
+    var lbl = meta.c + " " + (r[0] || "");
+    toast(shxFmt(libAddOnly(meta.c, i) ? T.added : T.already, lbl));
+    SHXIN = false;
+    if(VIEW && VIEW.name === "lib") viewLib();
+  }).catch(function(){ toast(T.fail); });
+}
+document.addEventListener("click", function(e){
+  var b = e.target.closest("[data-shxpaste],[data-shxinok],[data-shxcopy],[data-shxadd],[data-shxitem]");
+  if(!b) return;
+  var T = shxT();
+  if(b.hasAttribute("data-shxitem")){ var it0 = libItem(b.getAttribute("data-shxitem")); if(it0) shareItem(it0); return; }
+  if(b.hasAttribute("data-shxpaste")){
+    shxReadClip(shxAddFrom, function(){ SHXIN = true; viewLib(); var el = $("shxin"); if(el) el.focus(); });
+  } else if(b.hasAttribute("data-shxinok")){
+    var el = $("shxin"); shxAddFrom(el ? el.value : "");
+  } else if(b.hasAttribute("data-shxcopy")){
+    shxCopy(location.href).then(function(){ var s = $("shxsteps"); if(s) s.innerHTML = '<div class="shxbox">' + esc(T.iosSteps) + "</div>"; });
+  } else if(b.hasAttribute("data-shxadd")){
+    if(!VIEW || VIEW.name !== "share" || VIEW.i == null) return;
+    libAddOnly(VIEW.c, VIEW.i); toast(shxFmt(T.added, VIEW.c + " " + (BK[VIEW.c].rows[VIEW.i][0] || "")));
+    go("#/lib");
+  }
+});
+
 /* ============ router ============ */
 function go(h){ if(location.hash === h){ NAVCLICK = false; route(); } else location.hash = h; }
 window.addEventListener("hashchange", function(e){
@@ -1082,6 +1317,7 @@ function route(){
   var p = parseHash(); closeSheet();
   if(!p.length) return viewHome();
   if(p[0] === "b" && p[1]){ return p[2] ? viewReader(p[1], p.slice(2).join("/")) : viewToc(p[1]); }
+  if(p[0] === "sh" && p[1] && p[2]) return viewShare(p[1], p.slice(2).join("/"), p.q);
   if(p[0] === "s") return viewSearch(p.slice(1).join("/"), p.q);
   if(p[0] === "bm") return viewBookmarks();
   if(p[0] === "set") return viewSettings();
@@ -1672,7 +1908,8 @@ function openSheet(i){
     '<button class="btn" data-act="copy">' + esc(s.copyCite) + "</button>" +
     '<button class="btn" data-act="copyen">' + esc(s.copyEn) + "</button>" +
     (r[2] ? '<button class="btn" data-act="copyzh">' + esc(s.copyZh) + "</button>" : "") +
-    '<button class="btn" data-act="link">' + esc(s.copyLink) + "</button></div>";
+    '<button class="btn" data-act="link">' + esc(s.copyLink) + "</button>" +
+    '<button class="btn btn-brass" data-act="share">' + esc(shxT().share) + "</button></div>";
   if(refs.length){
     h += '<div class="k2">' + esc(s.bibleRefs) + "</div>";
     h += refs.map(function(x){ return '<button class="xref" data-bib="' + x.bi + "." + x.c + "." + x.v + '"><span>' + esc(x.label) + '</span><span class="chev">›</span></button>'; }).join("");
@@ -1699,6 +1936,7 @@ function paraAct(act){
   else if(act === "link") copyText(location.href.split("#")[0] + "#/b/" + c + "/" + (r[0] || "i" + i)).then(function(){ toast(L().copied); });
   else if(act === "bm"){ toggleBookmark(c, i); refreshPara(c, i); openSheet(i); }
   else if(act === "lib"){ toggleLib(c, i); refreshPara(c, i); openSheet(i); }
+  else if(act === "share"){ closeSheet(); shareParagraph(c, i); }
 }
 
 /* ---- bookmarks ---- */
@@ -1929,7 +2167,7 @@ function viewLib(){
   var s = L();
   var head = bar('<span class="bar-title">' + esc(s.tabLib) + "</span>");
   if(!LIB.length){
-    setApp(head + '<main><div class="wrap">' + fsPanel() + '<div class="libempty"><p>' + esc(s.libEmpty) + '</p><p class="sub">' + esc(s.libEmpty2) + "</p></div></div></main>" +
+    setApp(head + '<main><div class="wrap">' + fsPanel() + shxLibRow() + '<div class="libempty"><p>' + esc(s.libEmpty) + '</p><p class="sub">' + esc(s.libEmpty2) + "</p></div></div></main>" +
       '<button class="fab" data-go="#/lib/add" aria-label="' + esc(s.libAdd) + '">＋</button>', "lib");
     return;
   }
@@ -1945,7 +2183,7 @@ function viewLib(){
       '<span class="een" style="padding:0">' + esc(snip) + "</span></span>" + '<span class="count">' + it.ok + "/" + (it.ok + it.ng) + "</span></button>";
   }).join("");
   var delN = 0; for(var kk in LIBDELSEL) if(LIBDELSEL[kk]) delN++;
-  setApp(head + '<main><div class="wrap">' + fsPanel() +
+  setApp(head + '<main><div class="wrap">' + fsPanel() + shxLibRow() +
     '<div class="src" style="margin:0 0 14px;font-family:var(--f-mono);font-size:calc(11.5px * var(--fs));color:var(--faint)">' + esc(t(s.libCount, LIB.length, ok, ng)) + "</div>" +
     '<div class="tlist">' + rows + "</div>" +
     '<button class="clearbtn" style="margin-top:18px" data-libdeltoggle="1">' + esc(LIBDEL ? (delN ? t(s.libDelN, delN) : s.libDelDone) : s.libDelToggle) + "</button></div></main>" +
@@ -1979,6 +2217,7 @@ function viewDrill(id){
     (allOn ? "" : '<button class="btn btn-p btn-wide" data-vreveal="1">' + esc(s.showAll) + "</button>") +
     '<button class="btn btn-wide" data-reshuffle="1">' + esc(s.reshuffle) + "</button>" +
     '<button class="btn btn-wide" data-go="#/b/' + esc(it.c) + "/" + (it.ref ? esc(it.ref) : "i" + it.i) + '">' + esc(s.openInBook) + "</button>" +
+    '<button class="btn btn-wide" data-shxitem="' + esc(it.id) + '">' + esc(shxT().share) + "</button>" +
     (hasNext ? '<button class="btn btn-wide" data-nextd="1">' + esc(s.nextItem) + "</button>" : "") + "</div></div></main>" +
     '<div class="footbar"><div class="wrap"><button class="btn btn-clay btn-wide" data-vmark="0">' + esc(s.forgot) + '</button><button class="btn btn-sage btn-wide" data-vmark="1">' + esc(s.got) + "</button></div></div>";
   setApp(html, "lib", true);
